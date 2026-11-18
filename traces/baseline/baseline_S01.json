@@ -1,0 +1,76 @@
+{
+  "request_id": "baseline_S01",
+  "user_text": "Describe this image.",
+  "image_path": "/kaggle/working/outputs/p3/inputs/coco_bear.jpg",
+  "questions": [
+    "What animal is shown?",
+    "What colour is its fur?"
+  ],
+  "use_critique": false,
+  "seed": 266,
+  "route": "caption_question",
+  "planner_reason": "ok",
+  "image_quality": "ok",
+  "image_text_flagged": false,
+  "image_text_seen": "",
+  "vision": {
+    "caption": "A close-up of a brown bear's face.",
+    "objects": [
+      "bear",
+      "grass"
+    ],
+    "visible_text": "",
+    "answers": {
+      "What animal is shown?": "A bear.",
+      "What colour is its fur?": "The bear has brown fur."
+    }
+  },
+  "prompt": "",
+  "generations": [],
+  "critiques": [],
+  "revisions": 0,
+  "final_image": "",
+  "final_status": "answered",
+  "message": "Answered from the image.",
+  "trace": [
+    {
+      "agent": "planner",
+      "input": {
+        "text": "Describe this image.",
+        "image": "/kaggle/working/outputs/p3/inputs/coco_bear.jpg"
+      },
+      "output": {
+        "route": "caption_question",
+        "reason": "ok",
+        "image_quality": "ok",
+        "image_text_flagged": false,
+        "image_text_seen": ""
+      },
+      "seconds": 0.665
+    },
+    {
+      "agent": "vision",
+      "input": {
+        "image": "/kaggle/working/outputs/p3/inputs/coco_bear.jpg",
+        "questions": [
+          "What animal is shown?",
+          "What colour is its fur?"
+        ]
+      },
+      "output": {
+        "caption": "A close-up of a brown bear's face.",
+        "objects": [
+          "bear",
+          "grass"
+        ],
+        "visible_text": "",
+        "answers": {
+          "What animal is shown?": "A bear.",
+          "What colour is its fur?": "The bear has brown fur."
+        }
+      },
+      "seconds": 4.025
+    }
+  ],
+  "total_seconds": 4.69
+}

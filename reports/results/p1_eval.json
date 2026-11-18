@@ -1,0 +1,99 @@
+{
+  "cross_table": [
+    {
+      "system": "kavan",
+      "goldset": "kavan",
+      "mode": "dense",
+      "n_questions": 25,
+      "correct_of_25": 12,
+      "status_correct": 20,
+      "recall_at_5": 0.875,
+      "recall_questions": 24,
+      "citation_accuracy": 0.5609756097560976,
+      "citations_counted": 41,
+      "median_seconds_per_question": 1.7123,
+      "missing_predictions": 0
+    },
+    {
+      "system": "kavan",
+      "goldset": "kavan",
+      "mode": "hybrid",
+      "n_questions": 25,
+      "correct_of_25": 23,
+      "status_correct": 25,
+      "recall_at_5": 0.875,
+      "recall_questions": 24,
+      "citation_accuracy": 0.9032258064516129,
+      "citations_counted": 62,
+      "median_seconds_per_question": 0.0012,
+      "missing_predictions": 0,
+      "groundedness_mean": null,
+      "groundedness_within_one": null
+    },
+    {
+      "system": "kavan",
+      "goldset": "muhammed",
+      "mode": "dense",
+      "n_questions": 25,
+      "correct_of_25": 4,
+      "status_correct": 19,
+      "recall_at_5": 0.6956521739130435,
+      "recall_questions": 23,
+      "citation_accuracy": 0.25,
+      "citations_counted": 40,
+      "median_seconds_per_question": 1.9181,
+      "missing_predictions": 0
+    },
+    {
+      "system": "kavan",
+      "goldset": "muhammed",
+      "mode": "hybrid",
+      "n_questions": 25,
+      "correct_of_25": 8,
+      "status_correct": 22,
+      "recall_at_5": 0.4782608695652174,
+      "recall_questions": 23,
+      "citation_accuracy": 0.3382352941176471,
+      "citations_counted": 68,
+      "median_seconds_per_question": 0.0008,
+      "missing_predictions": 0
+    }
+  ],
+  "selection": {
+    "final_system": "kavan",
+    "report_goldset": "kavan",
+    "kaggle_public_score": 0.818,
+    "decided_by": "team",
+    "note": "Kavan's system was selected as the team's final Part 1 system because it had the higher Kaggle public score. The report's main results use Kavan's golden set."
+  },
+  "baseline": {
+    "system": "kavan",
+    "goldset": "kavan",
+    "mode": "dense",
+    "n_questions": 25,
+    "correct_of_25": 12,
+    "status_correct": 20,
+    "recall_at_5": 0.875,
+    "recall_questions": 24,
+    "citation_accuracy": 0.5609756097560976,
+    "citations_counted": 41,
+    "median_seconds_per_question": 1.7123,
+    "missing_predictions": 0
+  },
+  "final": {
+    "system": "kavan",
+    "goldset": "kavan",
+    "mode": "hybrid",
+    "n_questions": 25,
+    "correct_of_25": 23,
+    "status_correct": 25,
+    "recall_at_5": 0.875,
+    "recall_questions": 24,
+    "citation_accuracy": 0.9032258064516129,
+    "citations_counted": 62,
+    "median_seconds_per_question": 0.0012,
+    "missing_predictions": 0,
+    "groundedness_mean": null,
+    "groundedness_within_one": null
+  }
+}

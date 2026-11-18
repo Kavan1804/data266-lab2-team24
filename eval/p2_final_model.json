@@ -1,0 +1,11 @@
+{
+  "source_notebook": "notebooks/p2_finetune_Muhammad.ipynb",
+  "run_name": "run_b",
+  "hf_repo": "muhammadfsalman/data266-lab2-p2-run_b",
+  "local_path": null,
+  "weight_name": "pytorch_lora_weights.safetensors",
+  "scale": 1.0,
+  "base_model": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+  "prompt_hint": "",
+  "is_final": true
+}

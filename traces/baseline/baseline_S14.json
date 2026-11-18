@@ -1,0 +1,39 @@
+{
+  "request_id": "baseline_S14",
+  "user_text": "Describe this image.",
+  "image_path": "/kaggle/working/outputs/p3/inputs/broken_truncated.jpg",
+  "questions": [],
+  "use_critique": false,
+  "seed": 266,
+  "route": "bad_input",
+  "planner_reason": "The file broken_truncated.jpg could not be read as an image (OSError).",
+  "image_quality": "broken",
+  "image_text_flagged": false,
+  "image_text_seen": "",
+  "vision": null,
+  "prompt": "",
+  "generations": [],
+  "critiques": [],
+  "revisions": 0,
+  "final_image": "",
+  "final_status": "bad_input",
+  "message": "The file broken_truncated.jpg could not be read as an image (OSError). Please upload a valid image.",
+  "trace": [
+    {
+      "agent": "planner",
+      "input": {
+        "text": "Describe this image.",
+        "image": "/kaggle/working/outputs/p3/inputs/broken_truncated.jpg"
+      },
+      "output": {
+        "route": "bad_input",
+        "reason": "The file broken_truncated.jpg could not be read as an image (OSError).",
+        "image_quality": "broken",
+        "image_text_flagged": false,
+        "image_text_seen": ""
+      },
+      "seconds": 0.004
+    }
+  ],
+  "total_seconds": 0.004
+}

@@ -1,0 +1,26 @@
+gold_id,conversation_id,turn,answer,status,citations,figure_references,top5_sources,seconds
+K01,KC01,1,−0.6,answered,"DOC1:Table 1-4,DOC1:p11",Table 1-4,DOC1:p11:Table 1-4;DOC1:p10;DOC1:p11;DOC1:p36;DOC1:p10:Figure 1-6,1.9509
+K02,KC02,1,25.3%,answered,"DOC2:Table A-3,DOC2:p7",Table A-3,DOC2:p7:Table A-3;DOC1:p4:Figure 1-3;DOC1:p4;DOC1:p6;DOC1:p5:Figure 1-4,1.4889
+K03,KC03,1,1.19,answered,DOC3:p2,NONE,DOC3:p3;DOC3:p2:Table B-1;DOC3:p2;DOC3:p3:Figure B-2;DOC3:p2:Figure B-1,1.3224
+K04,KC04,1,3.2%,answered,"DOC1:p1,DOC1:Table 1-1",Table 1-1,DOC1:p1;DOC1:p1:Table 1-1;DOC1:p11;DOC1:p4;DOC2:p2:Table A-1,1.5174
+K05,KC05,1,9.6,answered,DOC1:p7,NONE,DOC1:p7;DOC2:p6;DOC1:p7:Table 1-3;DOC1:p3:Figure 1-2;DOC2:p4:Figure A-2,1.5187
+K06,KC06,1,"According to Figure B-1, a growth of approximately 3.1% keeps U.S. unemployment constant.",answered,"DOC3:p2,DOC3:Figure B-2,DOC3:p3",Figure B-2,DOC3:p2;DOC1:p29;DOC1:p29;DOC3:p3:Figure B-2;DOC3:p2:Figure B-1,2.5497
+K07,KC07,1,-0.41,answered,"DOC3:Figure B-2,DOC3:p3",Figure B-2,DOC3:p3:Figure B-2;DOC3:p6;DOC3:p2:Figure B-1;DOC3:p4;DOC3:p2:Table B-1,1.327
+K08,KC08,1,1.9,answered,DOC2:p2,NONE,DOC2:p2;DOC1:p3;DOC2:p2:Table A-1;DOC1:p2;DOC1:p1:Table 1-1,1.7741
+K09,KC09,1,14.7%,answered,"DOC2:Figure A-7,DOC2:p6",Figure A-7,DOC2:p6:Figure A-7;DOC2:p6;DOC2:p6:Figure A-6;DOC2:p4:Figure A-3;DOC2:p4:Figure A-2,1.4679
+K10,KC10,1,The GDP deflator inflation for 2009 shown in Figure B-3 is approximately 2.6%.,answered,DOC3:p4,NONE,DOC3:p4;DOC3:p4:Figure B-3;DOC1:p11;DOC1:p27:Figure 2-4;DOC3:p4,2.4445
+K11,KC11,1,8.4%,answered,"DOC2:Figure A-6,DOC2:p6",Figure A-6,DOC2:p6:Figure A-6;DOC2:p6;DOC2:p6:Figure A-7;DOC1:p3:Figure 1-2;DOC2:p4:Figure A-2,1.4077
+K12,KC12,1,"The unemployment rate in Portugal fell between 2010 and 2012, by 0.9 percentage points.",answered,DOC2:p6,NONE,DOC2:p6;DOC2:p6:Figure A-7;DOC2:p6:Figure A-6;DOC1:p4;DOC1:p2,2.7956
+K13,KC13,1,1.4 percentage points,answered,"DOC2:p6,DOC1:p7",NONE,DOC2:p6;DOC2:p4:Figure A-3;DOC1:p7;DOC2:p4:Figure A-2;DOC1:p7:Table 1-3,2.1563
+K14,KC14,1,"China's output growth slowed to 7.8% in 2012, which is 2.9 percentage points slower than its 2000-2007 average of 10.5%",answered,DOC3:p5,NONE,DOC3:p5;DOC1:p11;DOC1:p10;DOC1:p10;DOC1:p11,3.5737
+K15,KC15,1,U.S. output growth for 2010 was revised from 3.0% to 2.4%. This revision occurred following the comprehensive benchmark revision of the national accounts in July 2013.,answered,DOC2:p3,NONE,DOC2:p3;DOC1:p4;DOC1:p4;DOC1:p4:Figure 1-3;DOC1:p5,3.4505
+K16,KC16,1,1.2%,answered,"DOC1:p4,DOC1:Table 1-2,DOC1:p5",Table 1-2,DOC1:p4;DOC3:p4:Figure B-4;DOC1:p5:Table 1-2;DOC2:p3;DOC3:p4:Figure B-3,1.7123
+K17,KC17,1,0.5,answered,"DOC3:Table B-2,DOC3:p5",Table B-2,DOC3:p5:Table B-2;DOC3:p5;DOC1:p24;DOC1:p3:Figure 1-2;DOC1:p24:Figure 2-3,1.4497
+K18,KC18,1,Status not_found,answered,"DOC2:Figure A-6,DOC2:p6",Figure A-6,DOC2:p6:Figure A-6;DOC1:p8;DOC1:p7;DOC1:p8:Figure 1-5;DOC2:p6:Figure A-7,1.4472
+K19,KC19,1,China's registered urban unemployment rate has not moved despite slower growth.,answered,"DOC3:p5,DOC1:p11",NONE,DOC3:p5;DOC3:p6:Figure B-5 (corrected);DOC3:p5:Figure B-5;DOC3:p1;DOC1:p11,1.8762
+K20,KC20,1,"In 2009, headline CPI inflation fell further in the United States.",answered,DOC3:p4,NONE,DOC3:p4;DOC3:p4;DOC3:p4:Figure B-3;DOC1:p27;DOC1:p27,2.334
+K21,KC21,1,1.1%,answered,"DOC1:Table 1-3,DOC1:p7",Table 1-3,DOC1:p7:Table 1-3;DOC1:p7;DOC1:p8:Figure 1-5;DOC1:p8;DOC1:p7,1.5487
+K22,KC21,2,1.6%,answered,"DOC1:Table 1-3,DOC1:p7",Table 1-3,DOC1:p7:Table 1-3;DOC1:p7;DOC1:p8;DOC1:p8:Figure 1-5;DOC1:p7,1.4842
+K23,KC21,3,+0.5%,answered,DOC1:p7,NONE,DOC1:p7;DOC1:p7;DOC1:p7:Table 1-3;DOC2:p3;DOC2:p1,1.6455
+K24,KC22,1,The 2013 unemployment rate was 5.8%,answered,"DOC3:Table B-2,DOC3:p5",Table B-2,DOC3:p5:Table B-2;DOC1:p24;DOC2:p4:Figure A-3;DOC1:p23;DOC2:p4:Figure A-2,2.082
+K25,KC22,2,"The 2013 unemployment rate was 5.8%, which is lower than the 2010 rate of 9.6%.",answered,"DOC1:Figure 1-2,DOC1:p3",Figure 1-2,DOC1:p3:Figure 1-2;DOC1:p4;DOC1:p5:Table 1-2;DOC1:p24;DOC1:p24:Figure 2-3,2.7205

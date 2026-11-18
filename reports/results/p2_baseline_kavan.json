@@ -1,0 +1,25 @@
+{
+  "note": "Kavan's baseline, not the Part 2 results",
+  "rank": 4,
+  "learning_rate": 0.0001,
+  "steps": 1500,
+  "batch_size": 1,
+  "seed": 266,
+  "train_seconds": 680.894437759,
+  "gpu_hours": 0.18913734382194444,
+  "peak_gpu_gb": 3.957,
+  "gpu": "Tesla T4",
+  "trainable_params": 797184,
+  "base": {
+    "clip_score": 0.3194033106168111,
+    "lpips_diversity": 0.6959836582342783,
+    "kid_mean": 0.18145574629306793,
+    "kid_std": 0.03563143312931061
+  },
+  "lora": {
+    "clip_score": 0.3183687428633372,
+    "lpips_diversity": 0.6849778294563293,
+    "kid_mean": 0.09729992598295212,
+    "kid_std": 0.02356402389705181
+  }
+}

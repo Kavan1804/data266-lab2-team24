@@ -11,6 +11,7 @@ peft==0.15.2
 datasets==3.5.1
 lpips==0.1.4
 torchmetrics==1.7.1
+torch-fidelity==0.3.0
 ftfy==6.3.1
 gradio==5.29.0
 pydantic==2.11.4

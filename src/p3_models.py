@@ -67,7 +67,8 @@ class ModelHub:
         images, videos = process_vision_info(messages)
         inputs = self.processor(text=[text], images=images, videos=videos, padding=True, return_tensors="pt").to(self.device)
         with torch.inference_mode():
-            out = self.vlm.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
+            out = self.vlm.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False,
+                                     temperature=None, top_p=None, top_k=None)  # greedy, so the sampling defaults are unused
         return self.processor.batch_decode(out[:, inputs["input_ids"].shape[1]:], skip_special_tokens=True)[0].strip()
 
     def text(self, prompt: str, max_new_tokens: int = 128) -> str:

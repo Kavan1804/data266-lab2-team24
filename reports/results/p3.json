@@ -1,0 +1,19 @@
+{
+  "baseline": {
+    "median_seconds_per_request": 9.642238738999993,
+    "auto_checks_ok": 15,
+    "mean_revisions": 0.0,
+    "scenarios_passed": null,
+    "human_agreement": null
+  },
+  "final": {
+    "median_seconds_per_request": 16.65451299499989,
+    "auto_checks_ok": 15,
+    "mean_revisions": 0.6,
+    "scenarios_passed": null,
+    "human_agreement": null,
+    "critic_agreement": null
+  },
+  "red_team_attack_success": 0,
+  "red_team_cases": 10
+}

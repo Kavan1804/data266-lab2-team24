@@ -16,6 +16,10 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 NB = ROOT / "notebooks"
 EVAL = ROOT / "eval"
+# two small course files (no question text) built into Part 1 as a fallback, in case Kaggle's data leaves them out
+_PART1 = next((d for d in (ROOT / "DATA266_Lab2_Part1", ROOT / "data" / "part1") if (d / "kb_manifest.json").exists()), None)
+assert _PART1 is not None, "put the Part 1 files in DATA266_Lab2_Part1/ before building (they stay gitignored)"
+PART1_SMALL_FILES = {n: (_PART1 / n).read_text() for n in ("kb_manifest.json", "validate_submission.py")}
 # the commit these notebooks were built from; cell 1 prints it when there is no git (Colab, Kaggle)
 BUILD_COMMIT = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip() or "no-commit-yet"
 
@@ -30,9 +34,8 @@ def code(text):
 
 def inline(name):
     body = (SRC / name).read_text()
-    body = re.sub(r"^from p1_engine import.*$", "", body, flags=re.M)
-    body = re.sub(r"^from p3_agents import.*$", "", body, flags=re.M)
-    body = re.sub(r"^from p1_score import.*$", "", body, flags=re.M)
+    # imports between our own files are dropped, because the cells share one namespace (also multi-line imports)
+    body = re.sub(r"^from (?:p1_engine|p3_agents|p1_score) import (?:\([^)]*\)|.*)$", "", body, flags=re.M)
     return code(body.replace("from __future__ import annotations\n", "from __future__ import annotations\n", 1))
 
 
@@ -74,7 +77,8 @@ import importlib.util, os
 from pathlib import Path
 
 ON_KAGGLE = Path("/kaggle/working").exists()
-ON_COLAB = importlib.util.find_spec("google.colab") is not None
+# Kaggle images also ship the google.colab package, so check Kaggle first and use Colab's own env variable
+ON_COLAB = not ON_KAGGLE and ("COLAB_RELEASE_TAG" in os.environ or importlib.util.find_spec("google.colab") is not None)
 here = Path.cwd().resolve()
 # if the notebook happens to sit inside our repo, deliverables go straight into it
 REPO = next((p for p in [here, *here.parents] if all((p / d).is_dir() for d in ("eval", "src", "notebooks"))), None)
@@ -153,16 +157,20 @@ if ON_COLAB:
         saved = True
     except Exception as err:
         print("could not fetch the notebook from Colab:", type(err).__name__, err)
-if not saved:
-    for candidate in [Path("/kaggle/src/script.ipynb"), here / "{name}.ipynb", *([REPO / "notebooks" / "{name}.ipynb"] if REPO else [])]:
+if ON_KAGGLE:
+    # Kaggle only keeps the notebook as it was before running (no outputs), so we cannot include the executed one
+    print("Kaggle: the ZIP has no notebook. Do File > Download Notebook (or download it from the saved version) "
+          "and put it in notebooks/{name}.ipynb in the repo.")
+elif not saved:
+    for candidate in [here / "{name}.ipynb", *([REPO / "notebooks" / "{name}.ipynb"] if REPO else [])]:
         if candidate.exists():
             shutil.copy(candidate, nb_target)
             saved = True
             break
-if saved:
-    print("notebook included. It has every output except this last cell, so also do File > Download .ipynb once this finishes.")
-else:
-    print("WARNING: notebook file not found. Do File > Download .ipynb and put it in notebooks/{name}.ipynb in the repo.")
+    if saved:
+        print("notebook included. It has every output except this last cell, so also do File > Download .ipynb once this finishes.")
+    else:
+        print("WARNING: notebook file not found. Do File > Download .ipynb and put it in notebooks/{name}.ipynb in the repo.")
 
 # 2) the deliverables, small files only (no raw data, model caches or secrets)
 skip_parts = {{"__pycache__", ".git", "chroma", "hf_cache", "data", "checkpoints"}}
@@ -193,6 +201,8 @@ with zipfile.ZipFile(zip_path) as zf:
     for info in zf.infolist():
         print(f"  {{info.file_size / 1e6:8.2f}} MB  {{info.filename}}")
 try:
+    if not ON_COLAB:  # Kaggle images ship the google.colab package, but its download only works on Colab
+        raise RuntimeError("not on Colab")
     from google.colab import files
     files.download(str(zip_path))
 except Exception:
@@ -234,7 +244,8 @@ We both built a complete Part 1 on our own: this is Kavan's (`p1_rag_kavan.ipynb
 We used local models only because graders rerun this notebook on Kaggle, and an API key would not be there.
 """),
         md("## Install packages\nVersions are pinned so a fresh GPU environment gets what we tested. If an install fails it fails loudly, we do not hide it."),
-        code("%pip install -q transformers==4.51.3 accelerate==1.6.0 qwen-vl-utils==0.0.11 sentence-transformers==4.1.0 chromadb==1.0.7 rank-bm25==0.2.2 pymupdf==1.25.5 pandas pillow matplotlib"),
+        code("%pip install -q transformers==4.51.3 accelerate==1.6.0 qwen-vl-utils==0.0.11 sentence-transformers==4.1.0 chromadb==1.0.7 rank-bm25==0.2.2 pymupdf==1.25.5"),
+        md("pandas, pillow and matplotlib are already on Colab and Kaggle, so we leave them alone. Upgrading them there pulls in versions that conflict with preinstalled packages."),
         code(SETUP),
         md("## Find the data\nThe PDFs cannot be built into the notebook (we never commit them), so this is the one thing to provide. Put the Part 1 files, or a ZIP of them, next to the notebook, in `/content`, or in `~/data266_lab2_data/`. On Kaggle, attach the competition data. `QUESTIONS_PATH` lets graders swap in the hidden questions."),
         code('''
@@ -243,29 +254,78 @@ import pandas as pd
 
 search = [WORK, here, Path("/content"), Path.home() / "data266_lab2_data", *([REPO] if REPO else [])]
 search = list(dict.fromkeys(p for p in search if p.is_dir()))
-# a ZIP of the Part 1 files is unpacked once
-for base in search:
-    for z in base.glob("*.zip"):
-        try:
-            with zipfile.ZipFile(z) as zf:
-                if any(Path(n).name == "kb_manifest.json" for n in zf.namelist()) and not (WORK / "data" / z.stem).exists():
-                    zf.extractall(WORK / "data" / z.stem)
-                    print("unzipped", z)
-        except zipfile.BadZipFile:
-            pass
-found = glob.glob("/kaggle/input/**/kb_manifest.json", recursive=True)
-for base in search + [WORK / "data"]:
-    for depth in ("", "*", "*/*", "*/*/*"):
-        found += glob.glob(str(base / depth / "kb_manifest.json"))
+KAGGLE_INPUT = Path("/kaggle/input")
+# small course files built in as a fallback, in case the attached data leaves them out
+FALLBACK_MANIFEST = {manifest!r}
+FALLBACK_VALIDATOR = {validator!r}
+
+# a ZIP of the Part 1 files is unpacked once (also ZIPs inside attached Kaggle data)
+zips = [z for base in search for z in base.glob("*.zip")]
+if KAGGLE_INPUT.is_dir():
+    zips += list(KAGGLE_INPUT.rglob("*.zip"))
+for z in zips:
+    try:
+        with zipfile.ZipFile(z) as zf:
+            names = [Path(n).name for n in zf.namelist()]
+            if ("kb_manifest.json" in names or "Document.pdf" in names) and not (WORK / "data" / z.stem).exists():
+                zf.extractall(WORK / "data" / z.stem)
+                print("unzipped", z)
+    except zipfile.BadZipFile:
+        pass
+
+roots = search + [WORK / "data"] + ([KAGGLE_INPUT] if KAGGLE_INPUT.is_dir() else [])
+doc_files = [d["file"] for d in json.loads(FALLBACK_MANIFEST)["documents"]]
 
 
-def complete(folder):
-    docs = json.loads((folder / "kb_manifest.json").read_text())["documents"]
-    return all((folder / d["file"]).exists() for d in docs) and (folder / "validate_submission.py").exists()
+def candidate_folders():
+    """Every folder that holds kb_manifest.json or the first PDF, at any depth."""
+    seen = []
+    for root in roots:
+        for name in ("kb_manifest.json", doc_files[0]):
+            for f in root.rglob(name):
+                if f.parent not in seen:
+                    seen.append(f.parent)
+    return seen
 
 
-DATA = next((Path(f).parent for f in dict.fromkeys(found) if complete(Path(f).parent)), None)
-assert DATA is not None, f"Part 1 files not found. Looked in: {[str(p) for p in search]} and /kaggle/input"
+def missing_files(folder):
+    manifest = folder / "kb_manifest.json"
+    files = [d["file"] for d in json.loads(manifest.read_text())["documents"]] if manifest.exists() else doc_files
+    return [f for f in files + ["Questions.csv"] if not (folder / f).exists()]
+
+
+DATA = None
+for folder in candidate_folders():
+    gaps = missing_files(folder)
+    print("found Part 1 files in", folder, "| missing:", gaps or "nothing")
+    if gaps:
+        continue
+    if (folder / "kb_manifest.json").exists() and (folder / "validate_submission.py").exists():
+        DATA = folder
+    else:
+        # attached data is read-only, so build a working copy with links to the PDFs and the missing small files
+        DATA = WORK / "data" / "part1"
+        DATA.mkdir(parents=True, exist_ok=True)
+        for f in folder.iterdir():
+            if f.is_file() and not (DATA / f.name).exists():
+                (DATA / f.name).symlink_to(f)
+        if not (DATA / "kb_manifest.json").exists():
+            (DATA / "kb_manifest.json").write_text(FALLBACK_MANIFEST)
+            print("kb_manifest.json was not attached, so we use the copy built into this notebook")
+        if not (DATA / "validate_submission.py").exists():
+            (DATA / "validate_submission.py").write_text(FALLBACK_VALIDATOR)
+            print("validate_submission.py was not attached, so we use the copy built into this notebook")
+    break
+
+if DATA is None:
+    print("Nothing usable found. This is what is attached under /kaggle/input:")
+    if KAGGLE_INPUT.is_dir():
+        for f in sorted(KAGGLE_INPUT.rglob("*"))[:60]:
+            print("  ", f)
+    else:
+        print("   /kaggle/input does not exist")
+assert DATA is not None, ("Part 1 files not found. On Kaggle: Add Input -> your competition (or a dataset with the Part 1 "
+                          f"PDFs and Questions.csv). Also looked in: {[str(p) for p in search]}")
 
 QUESTIONS_PATH = os.environ.get("QUESTIONS_PATH", str(DATA / "Questions.csv"))
 OUT = WORK / "outputs" / "p1"
@@ -284,7 +344,7 @@ def local_or_hub(hub_id):
             print("using attached model:", folder)
             return folder
     return hub_id
-'''),
+'''.replace("{manifest!r}", repr(PART1_SMALL_FILES["kb_manifest.json"])).replace("{validator!r}", repr(PART1_SMALL_FILES["validate_submission.py"]))),
         md("## The engine\nThis cell is `src/p1_engine.py`, pasted in by `tools/build_notebooks.py` so the notebook runs without the repo. It holds no question text and no answer values."),
         inline("p1_engine.py"),
         md(f"## Conversation memory\nThis cell is `src/{conversation}`." + (" **This is only a placeholder.** It has no follow-up resolution, user-value handling or refusal yet, so multi-turn questions will score badly until `src/p1_conversation.py` replaces it." if "placeholder" in conversation else " It keeps one memory per `conversation_id`, and user values never go into the index.")),
@@ -578,7 +638,8 @@ It also gives Part 3 a working LoRA until Muhammed's final model is ready: at th
 
 Everything this notebook needs downloads by itself. For the upload, add a Hugging Face write token as `HF_TOKEN`: a Colab secret (key icon), an environment variable, or `huggingface-cli login` once on this machine. Never paste it into the notebook.
 """),
-        code("%pip install -q diffusers==0.33.1 transformers==4.51.3 peft==0.15.2 accelerate==1.6.0 datasets==3.5.1 lpips==0.1.4 torchmetrics==1.7.1 ftfy==6.3.1 tensorboard pandas pillow matplotlib"),
+        code("%pip install -q diffusers==0.33.1 transformers==4.51.3 peft==0.15.2 accelerate==1.6.0 datasets==3.5.1 lpips==0.1.4 torchmetrics==1.7.1 torch-fidelity==0.3.0 ftfy==6.3.1 tensorboard"),
+        md("pandas, pillow and matplotlib are already on Colab and Kaggle, so we leave them alone. Upgrading them there pulls in versions that conflict with preinstalled packages."),
         code(SETUP),
         md("## Clean and split the data\nWe drop images that do not decode and exact duplicates, then split 90/10 with seed 266. Test images are never used for training."),
         code(P2_DATA_LOADER + '''
@@ -832,7 +893,8 @@ Scenarios and red-team cases are in `eval/` and were committed before running. T
 
 People judge the pass/fail rubrics after this run. This notebook prints `PENDING` for those numbers, and `p3_results.ipynb` computes them once the forms are filled in.
 """),
-        code("%pip install -q diffusers==0.33.1 transformers==4.51.3 peft==0.15.2 accelerate==1.6.0 qwen-vl-utils==0.0.11 gradio==5.29.0 pydantic==2.11.4 datasets==3.5.1 pandas pillow matplotlib"),
+        code("%pip install -q diffusers==0.33.1 transformers==4.51.3 peft==0.15.2 accelerate==1.6.0 qwen-vl-utils==0.0.11 gradio==5.29.0 pydantic==2.11.4 datasets==3.5.1"),
+        md("pandas, pillow and matplotlib are already on Colab and Kaggle, so we leave them alone. Upgrading them there pulls in versions that conflict with preinstalled packages."),
         code(SETUP),
         md("## The agents\nThis cell is `src/p3_agents.py`. Model calls go through a `hub` object, so a failing model becomes a clear message rather than a crash."),
         inline("p3_agents.py"),

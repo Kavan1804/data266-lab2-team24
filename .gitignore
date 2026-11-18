@@ -30,3 +30,9 @@ hf_cache/
 *.out
 *.bbl
 *.blg
+
+# brief rule 6: generated images go to Hugging Face, not GitHub
+*.png
+*.jpg
+*.jpeg
+Lab2_rating_sheets.html
