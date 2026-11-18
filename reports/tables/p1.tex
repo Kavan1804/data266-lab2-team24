@@ -1,17 +1,19 @@
 \begin{table}[!t]
 \centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \caption{Part 1 results on our 25 golden questions}
 \label{tab:p1}
 \begin{tabular}{lcc}
-\hline
+\toprule
 Measure & Dense baseline & Final hybrid \\
-\hline
+\midrule
 Correct out of 25 & 12 & 23 \\
 Recall@5 & 0.88 & 0.88 \\
 Citation accuracy & 0.56 & 0.90 \\
 Groundedness mean (1--5) & n/a & 4.32 \\
 Agreement within one point & n/a & 0.92 \\
 Median seconds per question & 1.712 & 0.001 \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}

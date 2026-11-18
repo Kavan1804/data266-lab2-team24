@@ -1,19 +1,21 @@
 \begin{table}[!t]
 \centering
-\caption{Part 2 reproduction: Kavan's independent baseline run (CLIP as cosine similarity, 0--1; Table~\ref{tab:p2} uses the 0--100 scale)}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Part 2 reproduction: Kavan's independent baseline run (CLIP as cosine similarity, 0--1; Table~\ref{tab:p2} uses 0--100)}
 \label{tab:p2repro}
 \begin{tabular}{lcc}
-\hline
+\toprule
 Measure & Base & LoRA (Kavan) \\
-\hline
+\midrule
 KID (mean) & 0.1815 & 0.0973 \\
 KID (std) & 0.0356 & 0.0236 \\
 CLIP score & 0.319 & 0.318 \\
 LPIPS diversity & 0.696 & 0.685 \\
-LoRA rank / steps / batch & n/a & 4 / 1500 / 1 \\
-Trainable parameters & n/a & 797184 \\
+Rank / steps / batch & n/a & 4 / 1500 / 1 \\
+Trainable parameters & n/a & 797{,}184 \\
 GPU-hours (Tesla T4) & n/a & 0.19 \\
 Peak GPU memory (GB) & n/a & 3.96 \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}

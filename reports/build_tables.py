@@ -28,8 +28,8 @@ def table(name, caption, label, header, rows):
     body = " \\\\\n".join(" & ".join(r) for r in rows)
     spec = "l" + "c" * (len(header) - 1)
     (TABLES / f"{name}.tex").write_text(
-        f"\\begin{{table}}[!t]\n\\centering\n\\caption{{{caption}}}\n\\label{{{label}}}\n\\begin{{tabular}}{{{spec}}}\n\\hline\n"
-        + " & ".join(header) + " \\\\\n\\hline\n" + body + " \\\\\n\\hline\n\\end{tabular}\n\\end{table}\n")
+        f"\\begin{{table}}[!t]\n\\centering\n\\footnotesize\n\\setlength{{\\tabcolsep}}{{4pt}}\n\\caption{{{caption}}}\n\\label{{{label}}}\n\\begin{{tabular}}{{{spec}}}\n\\toprule\n"
+        + " & ".join(header) + " \\\\\n\\midrule\n" + body + " \\\\\n\\bottomrule\n\\end{tabular}\n\\end{table}\n")
 
 
 def p1():
@@ -77,7 +77,7 @@ def p2():
                 ("Trainable parameters", "trainable_params", "{}"), ("Learning rate", "learning_rate", "{}"), ("Steps", "steps", "{}"), ("Batch size", "batch_size", "{}"),
                 ("GPU-hours", "gpu_hours", "{:.2f}"), ("Peak GPU memory (GiB)", "peak_gpu_gb", "{:.2f}"), ("Win rate vs base (overall preference)", "win_rate", "{:.2f}")]
     rows = [[label] + [show(m.get(key), fmt) for m in models] for label, key, fmt in measures]
-    table("p2", "Part 2 results", "tab:p2", ["Measure", "Base", "Run 1 (run\\_a)", "Run 2 (run\\_b, final)"], rows)
+    table("p2", "Part 2 results", "tab:p2", ["Measure", "Base", "Run 1", "Run 2 (final)"], rows)
 
 
 def p2_repro():
@@ -88,11 +88,11 @@ def p2_repro():
             ["KID (std)", show(base.get("kid_std"), "{:.4f}"), show(lora.get("kid_std"), "{:.4f}")],
             ["CLIP score", show(base.get("clip_score"), "{:.3f}"), show(lora.get("clip_score"), "{:.3f}")],
             ["LPIPS diversity", show(base.get("lpips_diversity"), "{:.3f}"), show(lora.get("lpips_diversity"), "{:.3f}")],
-            ["LoRA rank / steps / batch", "n/a", f"{show(data.get('rank'))} / {show(data.get('steps'))} / {show(data.get('batch_size'))}"],
-            ["Trainable parameters", "n/a", show(data.get("trainable_params"))],
+            ["Rank / steps / batch", "n/a", f"{show(data.get('rank'))} / {show(data.get('steps'))} / {show(data.get('batch_size'))}"],
+            ["Trainable parameters", "n/a", f"{data['trainable_params']:,}".replace(",", "{,}") if isinstance(data.get("trainable_params"), int) else show(data.get("trainable_params"))],
             ["GPU-hours (" + str(data.get("gpu", "GPU")) + ")", "n/a", show(data.get("gpu_hours"))],
             ["Peak GPU memory (GB)", "n/a", show(data.get("peak_gpu_gb"))]]
-    table("p2_repro", "Part 2 reproduction: Kavan's independent baseline run (CLIP as cosine similarity, 0--1; Table~\\ref{tab:p2} uses the 0--100 scale)", "tab:p2repro", ["Measure", "Base", "LoRA (Kavan)"], rows)
+    table("p2_repro", "Part 2 reproduction: Kavan's independent baseline run (CLIP as cosine similarity, 0--1; Table~\\ref{tab:p2} uses 0--100)", "tab:p2repro", ["Measure", "Base", "LoRA (Kavan)"], rows)
 
 
 def p3():

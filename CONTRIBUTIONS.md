@@ -26,7 +26,7 @@ We met once a week from Oct 20.
 | Oct 27, 2026 | [PENDING: topic] | [PENDING: link] |
 | Nov 3, 2026 | [PENDING: topic] | [PENDING: link] |
 | Nov 10, 2026 | [PENDING: topic] | [PENDING: link] |
-| Nov 17, 2026 | [PENDING: topic] | [PENDING: link] |
+| Nov 17, 2026 | Design review and knowledge transfer: decisions and results for all three parts | https://drive.google.com/file/d/1FzE-sc2kDpyrZ7FIuo5EpVz9IKJQlNyt/view?usp=sharing |
 
 ## How rating disagreements were resolved
 [PENDING: fill in after the human evaluation]
