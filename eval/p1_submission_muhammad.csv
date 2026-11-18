@@ -1,0 +1,41 @@
+id,conversation_id,question_id,answer,figure_references,citations,status
+1,C001,Q001,"The global economic crisis around 2008 was sparked by the housing bubble in the United States, which led to a sharp decline in housing prices and a subsequent decrease in consumer and business confidence. This, in turn, resulted in a sharp drop in stock prices, leading to a major economic crisis.",NONE,DOC1:p2,answered
+2,C002,Q002,"High unemployment rates can lead to economic instability, reduced consumer spending, and decreased productivity.",NONE,"DOC1:Table 1-2,DOC1:Table 1-3,DOC3:Table B-1,DOC3:Table B-2,DOC2:Table A-2,DOC1:Table 1-4",answered
+3,C003,Q003,"Economists measure economic growth by calculating the annual rate of growth of output (GDP), which is the difference between the output growth rates in different periods.",NONE,"DOC1:Table 1-2,DOC1:Table 1-4,DOC1:Table 1-3,DOC1:Table 1-1",answered
+4,C004,Q004,"The world economy experienced a severe recession during the 2009 recession, with average growth in advanced economies falling to -3.7% in 2009, the lowest annual growth rate since the Great Depression.",NONE,"DOC1:p2,DOC1:Table 1-1,DOC1:p21",answered
+5,C005,Q005,"Unemployment increased dramatically after the 2008 crisis, peaking at nearly 10% in 2010.",NONE,"DOC1:p2,DOC1:Table 1-1,DOC1:Table 1-3,DOC1:p5,DOC2:p1",answered
+6,C006,Q006,"China's economy grew at an average rate of 9.8% per year from 1980 to 1999, and 10.5% per year from 2000 to 2007.",NONE,"DOC1:p11,DOC1:Table 1-4",answered
+7,C007,Q007,"The 2008 crisis tanked stock markets everywhere, not just in the U.S.",NONE,"DOC1:p2,DOC1:Table 1-1",answered
+8,C008,Q008,Not enough information to definitively determine if fast economic growth always means fewer people out of work in the U.S.,NONE,DOC1:Table 1-2,answered
+9,C009,Q009,"No, consumer prices and overall economic prices are not always in sync in the U.S.",NONE,"DOC1:p26,DOC1:Table B-3,DOC1:p27",answered
+10,C010,Q010,"Europe has struggled with high unemployment rates even before the crisis, as evidenced by the high unemployment rates in Eastern Europe in the early 1990s. After the crisis, unemployment rates increased significantly, with some countries experiencing unemployment rates exceeding 20%.",NONE,DOC1:p12,answered
+11,C011,Q011,"China's strong growth through the 2008 mess was due to high capital accumulation, rapid technological progress, and a major fiscal expansion by the Chinese government.",NONE,"DOC1:p12,DOC1:Table 1-4",answered
+12,C012,Q012,"Mortgage-backed securities played a significant role in the financial crisis by becoming highly leveraged and complex, leading to a rapid decline in housing prices and a subsequent financial crisis.",NONE,DOC1:p32,answered
+13,C013,Q013,Consumption falls when housing prices fall.,NONE,"DOC1:p1,DOC1:Table 1-1,DOC1:p27,DOC1:p3",answered
+14,C014,Q014,A recession is a decrease in real output.,NONE,DOC1:p22,answered
+15,C015,Q015,Emerging economies grew faster before the crisis.,NONE,"DOC1:p1,DOC1:Table 1-1,DOC2:p2,DOC2:Table A-1",answered
+16,C016,Q016,9.9%,Figure A-2,DOC2:p4,answered
+17,C017,Q017,12.0%,Figure A-3,DOC2:p4,answered
+18,C018,Q018,0.45,Figure A-4,DOC2:p5,answered
+19,C019,Q019,The value of the U.S. stock price index in December 2010 is 1.57.,Figure A-5,DOC2:p5,answered
+20,C020,Q020,The United States,"Figure 1-5,Figure A-3","DOC1:p7,DOC3:Table B-2,DOC1:Table 1-2",answered
+21,C021,Q021,4.1%,"Figure B-5,Figure B-5 (corrected)","DOC3:p5,DOC3:p6",answered
+22,C022,Q022,Core CPI inflation exceeded headline CPI inflation by 1.7 percentage points in 2009.,Figure B-4,DOC3:p4,answered
+23,C023,Q023,"The fall-2011 forecast was 1.1%, while the later outturn was -0.7%.",NONE,DOC2:Table A-2,answered
+24,C024,Q024,The output growth for United States in 2012 was 2.3%.,NONE,DOC2:Table A-2,answered
+25,C025,Q025,9.8%,NONE,DOC3:Table B-2,answered
+26,C026,Q026,The output growth for China in 2012 was 7.7%.,NONE,DOC2:Table A-2,answered
+27,C027,Q027,3.0%,NONE,"DOC1:Table 1-2,DOC2:p1",answered
+28,C028,Q028,9.8%,NONE,DOC3:Table B-2,answered
+29,C029,Q029,"China's economy contracted in 2009 due to a major fiscal expansion by the Chinese government, which offset the adverse effect of slowed exports on demand.",NONE,"DOC1:p11,DOC1:Table 1-4,DOC1:p12,DOC1:p13",answered
+30,C030,Q030,"September 15, 2008",NONE,"DOC1:p1,DOC1:Table 1-1,DOC2:p5",answered
+31,C031,Q031,The unemployment rate for Euro area in 2012 was 11.4%.,NONE,DOC2:Table A-2,answered
+32,C032,Q032,18.9%,NONE,DOC1:Table 1-2,answered
+33,C032,Q033,18.9% in 2007 and 17.5% in 2013,NONE,DOC2:Table A-3,answered
+34,C032,Q034,"The U.S. federal budget deficit as a share of GDP in 2007 was 18.9%, and in 2013 it was 17.5%. In 2013, revenues were higher than spending by 4.1 percentage points.",NONE,DOC2:Table A-3,answered
+35,C033,Q035,"The Euro area's output growth rate in 2009 was -4.2%, which is 3.5 percentage points worse than the advanced-economy average of -3.7%.","Figure 1-1,Figure A-3","DOC1:p2,DOC1:Table 1-1,DOC1:Table 1-2",session_override
+36,C033,Q036,"The Euro area's output growth rate in 2009 was -4.2%, which is 3.5 percentage points worse than the advanced-economy average of -3.7%.",Figure A-3,"DOC1:Table 1-4,DOC1:Table 1-3,DOC2:Table A-2",answered
+37,C033,Q037,I cannot permanently change the read-only knowledge base. I can apply your supplied value only within this conversation.,NONE,NONE,session_override
+38,C034,Q038,-4.2%,NONE,DOC2:Table A-2,answered
+39,C035,Q039,"China's output growth in 2014 was 7.3%, which is lower than the 2013 outturn of 7.7%.",NONE,DOC2:p1,answered
+40,C035,Q040,"China's output growth in 2014 was 7.3%, which is lower than the 2013 outturn of 7.7%. The 2014 figure is in the document.",Figure A-3,DOC1:Table 1-4,answered

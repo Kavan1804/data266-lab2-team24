@@ -1,0 +1,26 @@
+gold_id,conversation_id,turn,answer,status,citations,figure_references,top5_sources,seconds
+M01,MC01,1,The U.S. federal budget balance in 2009 as a percentage of GDP was -10.1%,answered,DOC2:p7,,"DOC1:p5,DOC2:p7,DOC1:p13,DOC1:p2,DOC1:p6",6.137754584000504
+M02,MC02,1,17.5%,answered,DOC2:p7,,"DOC2:p7,DOC2:p3,DOC1:p5,DOC1:p6,DOC1:p13",4.039702209999632
+M03,MC03,1,1.8%,answered,DOC2:p3,,"DOC1:p5,DOC2:p3,DOC2:p7,DOC2:Table A-2,DOC1:Table 1-2",3.09290666600009
+M04,MC04,1,12.0%,answered,DOC2:p3,,"DOC2:p3,DOC1:p7,DOC1:p13,DOC2:p6,DOC2:p1",3.4082511229999
+M05,MC05,1,64.7%,answered,DOC1:p4,,"DOC1:p4,DOC3:p5,DOC1:p24,DOC1:p2,DOC3:p1",3.5965808880000623
+M06,MC06,1,Forecasts are shown as dashed lines in Figure A-2.,answered,"DOC2:Figure A-2,DOC2:p4,DOC2:p3",Figure A-2,"DOC2:Figure A-2,DOC2:p4,DOC2:p3,DOC2:p7,DOC2:p2",5.150672992000182
+M07,MC07,1,"The 2013 unemployment rate for the United States was 7.4%, and for the Euro area it was 12.0%. These values are based on the March 2014 vintage data.",answered,"DOC2:Figure A-3,DOC2:p3,DOC2:p4",Figure A-3,"DOC2:Figure A-3,DOC2:p3,DOC1:p7,DOC3:p2",5.773622916000022
+M08,MC08,1,January 2007,answered,"DOC2:Figure A-4,DOC2:p5,DOC2:p7,DOC2:Figure 1-1",Figure A-4,"DOC2:Figure A-4,DOC1:p37,DOC2:p5,DOC1:p27,DOC2:p7",5.606304398000248
+M09,MC09,1,January 2009,answered,"DOC2:Figure A-5,DOC2:p5,DOC1:p26",Figure A-5,"DOC2:Figure A-5,DOC1:p37,DOC2:p5,DOC1:p27,DOC2:p7",4.15945357200053
+M10,MC10,1,Figures A-6 and A-7 show the same nine countries' unemployment rates for 2010 and 2012.,answered,"DOC2:p6,DOC2:p7",,"DOC2:p6,DOC2:p7,DOC2:p5,DOC2:p4,DOC3:p1",5.237300643000708
+M11,MC11,1,4.1%,answered,DOC3:p5,,"DOC3:p5,DOC2:p3,DOC1:p11,DOC3:p7,DOC1:p4",5.5857458480004425
+M12,MC12,1,Fall-2011 forecast: 1.5%,answered,DOC2:p3,,"DOC2:p3,DOC2:p2,DOC1:p5,DOC1:p4,DOC1:p13",4.045197378000012
+M13,MC13,1,-0.7 (1.1),answered,DOC2:p3,,"DOC1:p7,DOC2:p3,DOC2:p2,DOC2:p7,DOC1:p5",3.8227259909999702
+M14,MC14,1,"The original U.S. output growth value for 2010 was 3.0%, and it was revised to 2.4%.",answered,DOC2:p3,,"DOC1:p4,DOC2:p3,DOC2:p7,DOC1:p5,DOC1:p13",5.377506109999558
+M15,MC15,1,8.1%,answered,DOC2:p3,,"DOC2:p3,DOC1:p5,DOC1:p4,DOC1:p13,DOC2:p2",3.474439388999599
+M16,MC15,2,"Using the conversation-only assumption of 8.5%, the value is 0.4 percentage points higher than the documented value of 8.1%.",session_override,DOC2:p3,,"DOC2:p3,DOC1:p7,DOC1:p5,DOC1:p10,DOC1:p11",0.0011676169997372199
+M17,MC15,3,"For this conversation only, use 8.5%.",session_override,,,"DOC1:p35,DOC1:p23,DOC1:p37,DOC1:p20,DOC1:p30",0.0010781009996208013
+M18,MC16,1,4.1%,answered,DOC2:p3,,"DOC2:p3,DOC3:p5,DOC1:p11,DOC1:p4,DOC3:p7",3.231479643000057
+M19,MC16,2,Yes. The assumed value of 5.0% is 0.9 percentage points higher than the documented value of 4.1%.,session_override,DOC2:p3,,"DOC1:p35,DOC1:p18,DOC1:p36,DOC1:p27,DOC1:p22",0.0012580839993461268
+M20,MC17,1,2.4%,answered,DOC2:p7,,"DOC2:p7,DOC1:p4,DOC1:p5,DOC2:p3,DOC1:p1",4.384324697000011
+M21,MC18,1,2.3%,answered,DOC2:p3,,"DOC1:p5,DOC2:p7,DOC2:p2,DOC2:p3,DOC1:p7",3.65104798900029
+M22,MC19,1,The system should report the outturn of -0.7%.,answered,DOC2:p3,,"DOC2:p3,DOC2:p2,DOC1:p7,DOC2:p7,DOC1:p5",4.115636242000619
+M23,MC20,1,11.4%,answered,DOC2:p3,,"DOC1:p7,DOC3:p7,DOC2:p3,DOC1:p23,DOC1:p3",4.025699250999423
+M24,MC21,1,The Euro area achieved positive output growth in both 2012 and 2013.,answered,DOC2:p3,,"DOC1:p7,DOC2:p3,DOC1:p3,DOC2:p2,DOC1:p13",5.859916045999853
+M25,MC22,1,2.8%,answered,DOC1:p4,,"DOC1:p4,DOC1:p1,DOC1:p12,DOC2:p2,DOC1:p13",4.314539887999672

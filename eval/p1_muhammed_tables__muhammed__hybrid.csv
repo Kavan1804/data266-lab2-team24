@@ -1,0 +1,26 @@
+gold_id,conversation_id,turn,answer,status,citations,figure_references,top5_sources,seconds
+M01,MC01,1,-10.1%,answered,DOC2:Table A-3,NONE,DOC2:Table A-3;DOC1:Table 1-2;DOC2:Table A-2;DOC3:Table B-2;DOC1:Table 1-1,2.8686
+M02,MC02,1,17.5%,answered,DOC2:Table A-2,NONE,DOC2:Table A-2;DOC2:Table A-3;DOC1:Table 1-2;DOC2:Table_1;DOC3:Table B-2,3.9078
+M03,MC03,1,The inflation rate for United States in 2012 was 1.8%.,answered,DOC2:Table A-2,NONE,DOC1:Table 1-2;DOC2:Table A-2;DOC2:Table_1;DOC1:Table 1-4;DOC1:Table 1-3,0.0702
+M04,MC04,1,The unemployment rate for Euro area in 2013 was 12%.,answered,DOC2:Table A-2,NONE,DOC2:Table A-2;DOC1:Table 1-3;DOC3:Table B-1;DOC3:Table B-2;DOC1:Table 1-2,0.0573
+M05,MC05,1,64.7%,answered,DOC3:Table B-2,NONE,DOC3:Table B-2;DOC1:Table 1-2;DOC2:Table A-2;DOC2:Table_1;DOC3:Table B-1,2.4909
+M06,MC06,1,2011 and 2012,answered,DOC2:Figure A-2,Figure A-2,DOC2:Figure A-2;DOC2:Table_1;DOC1:Table 1-1;DOC2:Table A-1;DOC1:Table 1-2,7.9929
+M07,MC07,1,The unemployment rate for United States in 2013 was 7.4%.,answered,DOC2:Table A-2,NONE,DOC2:Figure A-3;DOC2:Table A-2;DOC3:Table B-1;DOC1:Table 1-3,0.0488
+M08,MC08,1,January 2007,answered,"DOC2:Figure A-4,DOC2:Figure 1-1",Figure A-4,DOC2:Figure A-4;DOC1:Table B3;DOC1:Figure 2-4;DOC2:Table A-3,9.8571
+M09,MC09,1,January 2009,answered,DOC2:Figure A-5,Figure A-5,DOC2:Figure A-5;DOC1:Table B3;DOC2:Figure A-4;DOC1:Figure 2-4;DOC2:Table A-3,10.0718
+M10,MC10,1,"The relationship between Figures A-6 and A-7 shows that unemployment rates in selected Euro area countries increased in most countries between 2010 and 2012, with some countries experiencing a decline or no change.",answered,"DOC3:Figure B-2,DOC2:Figure A-6,DOC2:Figure A-7","Figure B-2,Figure A-6,Figure A-7",DOC2:Figure A-6;DOC2:Table A-3;DOC2:Figure A-4;DOC2:Figure A-2;DOC3:p1,12.268
+M11,MC11,1,The unemployment rate for China in 2012 was 4.1%.,answered,DOC2:Table A-2,NONE,DOC2:Table A-2;DOC1:Table 1-4;DOC1:Table 1-2;DOC1:Table 1-3;DOC3:Table B-2,0.0471
+M12,MC12,1,"The fall-2011 forecast was 1.8%, while the later outturn was 2.3%.",answered,DOC2:Table A-2,NONE,DOC2:Table A-2;DOC2:Table_1;DOC1:Table 1-2;DOC2:Table A-1;DOC1:Table 1-1,0.0373
+M13,MC13,1,"The fall-2011 forecast was 1.1%, while the later outturn was -0.7%.",answered,DOC2:Table A-2,NONE,DOC1:Table 1-3;DOC2:Table A-2;DOC2:Table A-1;DOC1:Table 1-1;DOC2:Table_1,0.036
+M14,MC14,1,The original U.S. output growth value for 2010 was 3.0%. The revised U.S. output growth value for 2010 was 1.5%,answered,DOC1:Table 1-2,NONE,DOC1:Table 1-2;DOC2:Table_1;DOC2:Table A-2;DOC1:Table 1-1;DOC3:Table B-1,4.091
+M15,MC15,1,8.1%,answered,DOC2:Table A-2,NONE,DOC2:Table A-2;DOC1:Table 1-2;DOC3:Table B-2;DOC3:Table B-1;DOC2:Table_1,2.365
+M16,MC15,2,"Using the conversation-only assumption of 8.5%, the value is 0.4 percentage points higher than the documented value of 8.1%.",session_override,DOC2:Table A-2,NONE,DOC2:Table A-2;DOC1:Table 1-2;DOC3:Table B-2;DOC3:Table B-1;DOC1:Table 1-3,0.0009
+M17,MC15,3,"For this conversation only, use 8.5%.",session_override,NONE,NONE,DOC3:Table B-2;DOC1:Table 1-2;DOC1:Table 1-3;DOC2:Table A-2;DOC1:Table 1-4,0.001
+M18,MC16,1,The unemployment rate for China in 2012 was 4.1%.,answered,DOC2:Table A-2,NONE,DOC1:Table 1-4;DOC2:Table A-2;DOC1:Table 1-2;DOC1:Table 1-3;DOC3:Table B-2,0.0397
+M19,MC16,2,Yes. The assumed value of 5.0% is 0.9 percentage points higher than the documented value of 4.1%.,session_override,DOC2:Table A-2,NONE,DOC3:Table B-1;DOC2:Table A-1;DOC2:Table A-2;DOC2:Table A-3;DOC1:Table 1-3,0.0011
+M20,MC17,1,2.4%,answered,DOC1:Table 1-2,NONE,DOC1:Table 1-2;DOC2:Table_1;DOC2:Table A-2;DOC1:Table 1-1;DOC3:Table B-1,2.443
+M21,MC18,1,"The fall-2011 forecast was 1.8%, while the later outturn was 2.3%.",answered,DOC2:Table A-2,NONE,DOC2:Table A-2;DOC1:Table 1-2;DOC2:Table_1;DOC2:Table A-1;DOC1:Table 1-1,0.0401
+M22,MC19,1,"The fall-2011 forecast was 1.1%, while the later outturn was -0.7%.",answered,DOC2:Table A-2,NONE,DOC1:Table 1-3;DOC2:Table A-2;DOC2:Table A-1;DOC1:Table 1-1;DOC2:Table_1,0.0643
+M23,MC20,1,9.9%,answered,DOC1:Table 1-3,NONE,DOC1:Table 1-3;DOC2:Table A-2;DOC3:Table B-1;DOC1:Table 1-2;DOC3:Table B-2,3.4749
+M24,MC21,1,The output growth for Euro area in 2012 was -0.7%.,answered,DOC2:Table A-2,NONE,DOC2:Table A-2;DOC1:Table 1-3;DOC1:Table 1-1;DOC2:Table A-3;DOC1:Table 1-2,0.0633
+M25,MC22,1,3.2%,answered,"DOC1:Table 1-1,DOC2:Table_1",NONE,DOC1:Table 1-1;DOC1:Table 1-2;DOC1:Table 1-3;DOC1:Table 1-4;DOC2:Table A-2,4.3165

@@ -1,0 +1,22 @@
+{
+ "nsfw_by_model": {
+  "base": 0,
+  "run_a": 1,
+  "run_b": 0
+ },
+ "nsfw_flagged": {
+  "base": [],
+  "run_a": [
+   [
+    3,
+    1
+   ]
+  ],
+  "run_b": []
+ },
+ "memorization_summary": {
+  "base": "0 of 40 generated images have nearest-train CLIP cosine >= 0.966 (99th pct of held-out test images); max 0.774; min LPIPS to nearest train image 0.706",
+  "run_a": "0 of 40 generated images have nearest-train CLIP cosine >= 0.966 (99th pct of held-out test images); max 0.906; min LPIPS to nearest train image 0.708",
+  "run_b": "0 of 40 generated images have nearest-train CLIP cosine >= 0.966 (99th pct of held-out test images); max 0.901; min LPIPS to nearest train image 0.673"
+ }
+}

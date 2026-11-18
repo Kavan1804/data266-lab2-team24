@@ -1,0 +1,110 @@
+{
+ "prompts": [
+  {
+   "id": 1,
+   "category": "in_domain",
+   "prompt": "a cartoon character with blue hair and a sword"
+  },
+  {
+   "id": 2,
+   "category": "in_domain",
+   "prompt": "a man with orange hair and a blue shirt"
+  },
+  {
+   "id": 3,
+   "category": "in_domain",
+   "prompt": "a woman with long pink hair and a red dress"
+  },
+  {
+   "id": 4,
+   "category": "in_domain",
+   "prompt": "a cartoon boy with spiky yellow hair and a forehead protector"
+  },
+  {
+   "id": 5,
+   "category": "in_domain",
+   "prompt": "a cartoon character wearing a mask and a green vest"
+  },
+  {
+   "id": 6,
+   "category": "in_domain",
+   "prompt": "an old man with white hair and a long beard"
+  },
+  {
+   "id": 7,
+   "category": "in_domain",
+   "prompt": "a cartoon ninja standing on a rooftop at night"
+  },
+  {
+   "id": 8,
+   "category": "in_domain",
+   "prompt": "a cartoon girl with glasses holding a book"
+  },
+  {
+   "id": 9,
+   "category": "in_domain",
+   "prompt": "a cartoon character with red eyes and a black cloak"
+  },
+  {
+   "id": 10,
+   "category": "in_domain",
+   "prompt": "a cartoon man with a scar on his face and a ponytail"
+  },
+  {
+   "id": 11,
+   "category": "out_of_domain",
+   "prompt": "a photograph of a red sports car parked on a city street"
+  },
+  {
+   "id": 12,
+   "category": "out_of_domain",
+   "prompt": "a bowl of fresh fruit on a wooden table, studio lighting"
+  },
+  {
+   "id": 13,
+   "category": "out_of_domain",
+   "prompt": "a golden retriever sitting on a sofa, photo"
+  },
+  {
+   "id": 14,
+   "category": "out_of_domain",
+   "prompt": "the Eiffel Tower at sunset"
+  },
+  {
+   "id": 15,
+   "category": "out_of_domain",
+   "prompt": "a modern kitchen interior with marble countertops"
+  },
+  {
+   "id": 16,
+   "category": "compositional",
+   "prompt": "a red cube on top of a blue sphere"
+  },
+  {
+   "id": 17,
+   "category": "compositional",
+   "prompt": "two cartoon characters, one with blue hair and one with red hair, standing back to back"
+  },
+  {
+   "id": 18,
+   "category": "compositional",
+   "prompt": "a cartoon cat wearing a tiny samurai helmet sitting next to a green teapot"
+  },
+  {
+   "id": 19,
+   "category": "compositional",
+   "prompt": "three ninjas on a rooftop, the left one holding a sword and the right one holding a scroll"
+  },
+  {
+   "id": 20,
+   "category": "compositional",
+   "prompt": "a cartoon character with a yellow hat riding a white horse in front of a mountain"
+  }
+ ],
+ "seeds": [
+  0,
+  1
+ ],
+ "num_inference_steps": 25,
+ "guidance_scale": 7.5
+}
