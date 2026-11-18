@@ -1,6 +1,6 @@
 \begin{table}[!t]
 \centering
-\caption{Part 2 results}
+\caption{Part 2 results (20 prompts $\times$ 2 seeds = 40 images per model; KID against 96 held-out test images)}
 \label{tab:p2}
 \begin{tabular}{lccc}
 \hline
@@ -10,13 +10,17 @@ KID (mean) & 0.0623 & 0.0240 & 0.0171 \\
 KID (std) & 0.0135 & 0.0096 & 0.0079 \\
 CLIP score & 32.517 & 31.884 & 32.115 \\
 LPIPS diversity & 0.800 & 0.789 & 0.780 \\
+LoRA rank / alpha & n/a & 4 / 4 & 32 / 32 \\
 Trainable parameters & n/a & 0.80M & 6.38M \\
-Learning rate & \textit{PENDING} & \textit{PENDING} & \textit{PENDING} \\
-Steps & \textit{PENDING} & \textit{PENDING} & \textit{PENDING} \\
-Batch size & \textit{PENDING} & \textit{PENDING} & \textit{PENDING} \\
+Learning rate & n/a & $10^{-4}$ & $10^{-4}$ \\
+Steps & n/a & 1500 & 1500 \\
+Batch size & n/a & 4 & 4 \\
 GPU-hours & n/a & 0.51 & 0.49 \\
-Peak GPU memory (GiB) & n/a & 4.60 & 2.88 \\
-Win rate vs base (overall preference) & \textit{PENDING} & \textit{PENDING} & \textit{PENDING} \\
+Peak GPU memory (GiB) & n/a & 4.60$^{*}$ & 2.88 \\
+Win rate vs base (human, ties excluded) & n/a & not rated & 0.66 \\
 \hline
 \end{tabular}
+
+\smallskip
+{\footnotesize $^{*}$Includes about 1.8~GiB left on the GPU by an earlier failed attempt (1.79~GiB were allocated before this run started), so it cannot be compared with run 2.}
 \end{table}

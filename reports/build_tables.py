@@ -68,6 +68,9 @@ def muhammed_p2():
 
 
 def p2():
+    if not (RESULTS / "p2.json").exists() and not (HERE.parent / "eval" / "p2_config.json").exists():
+        print("p2: eval/p2_config.json not found, keeping the existing tables/p2.tex")
+        return
     data = load("p2.json") or muhammed_p2()
     models = [data.get(k, {}) for k in ("base", "run1", "run2")]
     measures = [("KID (mean)", "kid_mean", "{:.4f}"), ("KID (std)", "kid_std", "{:.4f}"), ("CLIP score", "clip_score", "{:.3f}"), ("LPIPS diversity", "lpips_diversity", "{:.3f}"),

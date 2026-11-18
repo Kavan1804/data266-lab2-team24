@@ -18,11 +18,15 @@ Each member writes only their own entry, and only what really happened. TEAM_WOR
 - **Muhammed:** [TO BE WRITTEN BY MUHAMMED BEFORE SUBMISSION]
 
 ## Meeting recordings
+We met once a week from Oct 20.
+
 | Date | Topic | Link |
 |---|---|---|
-| [PENDING: Nov 9/10] | Kickoff: work plan and code walkthrough | [PENDING] |
-| [PENDING: Nov 15] | Integration: merge, Part 1 selection, Part 3 rerun | [PENDING] |
-| [PENDING: Nov 16] | Demo rehearsal | [PENDING] |
+| Oct 20, 2026 | [PENDING: topic] | [PENDING: link] |
+| Oct 27, 2026 | [PENDING: topic] | [PENDING: link] |
+| Nov 3, 2026 | [PENDING: topic] | [PENDING: link] |
+| Nov 10, 2026 | [PENDING: topic] | [PENDING: link] |
+| Nov 17, 2026 | [PENDING: topic] | [PENDING: link] |
 
 ## How rating disagreements were resolved
 [PENDING: fill in after the human evaluation]

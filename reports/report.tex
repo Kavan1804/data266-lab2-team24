@@ -24,7 +24,7 @@
 \maketitle
 
 \begin{abstract}
-\pending{written last by the team, in your own words: one or two sentences per part with the headline result.}
+We built three systems on a single 16~GB GPU. For multimodal retrieval-augmented generation over three economics PDFs, a hybrid system (exact figure and table lookup, dense and BM25 retrieval, parsed table facts) answered 23 of 25 questions from our own golden set correctly, against 12 for a dense baseline, and it was selected for the Kaggle submission (public score 0.818). For diffusion fine-tuning, we trained two LoRA adapters of Stable Diffusion 1.5 on a captioned Naruto dataset: the rank-32 adapter lowered KID from 0.0623 to 0.0171 and was preferred to the base model in 66\% of non-tied human judgments (three raters, 25 blinded pairs), but it still drops objects from some multi-object prompts. For the five-agent image system, a critique loop increased the median time per request from 9.64~s to 16.65~s, and none of the ten red-team attacks succeeded.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -57,7 +57,7 @@ retrieval-augmented generation, diffusion models, LoRA, multi-agent systems, saf
 
 % ====================================================================
 \section{Team Contributions and AI Usage}
-\pending{one short paragraph: who led which part (details in CONTRIBUTIONS.md), and that AI coding assistants are declared in AI\_USAGE.md.}
+Kavan led Part 3 and Muhammed led Part 2. Each member also built a complete Part 1 system with its own golden set, and each ran the other member's lead part as an independent baseline (Kavan the Part 2 baseline, Muhammed the Part 3 baseline). Who did what in detail, and our meeting recordings, are listed in \texttt{CONTRIBUTIONS.md}. We used AI coding assistants for parts of the code, documentation and report drafts; each member declares the tool and its use in \texttt{AI\_USAGE.md}, and all human ratings were made by people. The code, notebooks and evaluation files are in \url{https://github.com/Kavan1804/data266_lab2}, and the Part 2 models and generated images are on Hugging Face (links in \texttt{links.txt}).
 
 \begin{thebibliography}{00}
 \bibitem{lewis} P. Lewis et al., ``Retrieval-augmented generation for knowledge-intensive NLP tasks,'' 2020. arXiv:2005.11401.

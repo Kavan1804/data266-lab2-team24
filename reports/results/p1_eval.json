@@ -27,8 +27,8 @@
       "citations_counted": 62,
       "median_seconds_per_question": 0.0012,
       "missing_predictions": 0,
-      "groundedness_mean": null,
-      "groundedness_within_one": null
+      "groundedness_mean": 4.32,
+      "groundedness_within_one": 0.92
     },
     {
       "system": "kavan",
@@ -93,7 +93,7 @@
     "citations_counted": 62,
     "median_seconds_per_question": 0.0012,
     "missing_predictions": 0,
-    "groundedness_mean": null,
-    "groundedness_within_one": null
+    "groundedness_mean": 4.32,
+    "groundedness_within_one": 0.92
   }
 }

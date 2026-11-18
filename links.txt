@@ -11,5 +11,5 @@ Hugging Face Part 2 images: https://huggingface.co/datasets/muhammadfsalman/data
 Hugging Face Part 3 inputs: https://huggingface.co/datasets/Kavan1804/data266-p3-inputs
 Hugging Face Part 2 baseline (Kavan): https://huggingface.co/Kavan1804/data266-p2-baseline-kavan-lora
 
-Final Kaggle notebook: [PENDING]
-Final Kaggle submission selected: [PENDING]
+Final Kaggle notebook: https://www.kaggle.com/code/kavansiddeshkumar/notebook01e6a18869
+Final Kaggle submission selected: submission.csv from that notebook (public score 0.818)

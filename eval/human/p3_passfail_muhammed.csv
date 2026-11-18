@@ -1,31 +1,31 @@
 scenario_id,mode,pass,critic_agree,note
-S01,baseline,,,
-S02,baseline,,,
-S03,baseline,,,
-S04,baseline,,,
-S05,baseline,,,
-S06,baseline,,,
-S07,baseline,,,
-S08,baseline,,,
-S09,baseline,,,
-S10,baseline,,,
-S11,baseline,,,
-S12,baseline,,,
-S13,baseline,,,
-S14,baseline,,,
-S15,baseline,,,
-S01,final,,,
-S02,final,,,
-S03,final,,,
-S04,final,,,
-S05,final,,,
-S06,final,,,
-S07,final,,,
-S08,final,,,
-S09,final,,,
-S10,final,,,
-S11,final,,,
-S12,final,,,
-S13,final,,,
-S14,final,,,
-S15,final,,,
+S01,baseline,1,,
+S02,baseline,1,,
+S03,baseline,0,,"sign is upright, not upside down"
+S04,baseline,1,,
+S05,baseline,0,,"not clearly a pencil sketch"
+S06,baseline,0,,"photorealistic apples"
+S07,baseline,0,,"red scarves are missing"
+S08,baseline,1,,"green ground and skier are visible"
+S09,baseline,0,,"image is dark and computers are not preserved"
+S10,baseline,0,,"rooftop is not clearly visible"
+S11,baseline,0,,"red headband and scroll are missing"
+S12,baseline,0,,"no clear night scene or full moon"
+S13,baseline,1,,
+S14,baseline,1,,
+S15,baseline,1,,
+S01,final,1,,
+S02,final,1,,
+S03,final,0,,"sign is upright, not upside down"
+S04,final,1,1,"watercolor bus is recognizable"
+S05,final,0,0,"still does not clearly look like a pencil sketch"
+S06,final,1,1,"pixel-art apples are visible"
+S07,final,1,1,"red scarves were added"
+S08,final,0,1,"critic rejected all rounds; final image still shows snow"
+S09,final,1,1,"computers are preserved and the image is brighter"
+S10,final,0,0,"rooftop is not clearly visible"
+S11,final,1,1,"red headband and scroll are visible"
+S12,final,0,0,"no clear night scene or full moon"
+S13,final,1,,
+S14,final,1,,
+S15,final,1,,

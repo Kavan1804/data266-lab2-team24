@@ -1,12 +1,16 @@
 \subsection{Evaluation and selection}
 \subsubsection{Golden sets}
-\pending{written together: each member wrote 25 questions from the three PDFs (not from Questions.csv) with the required category counts: facts/tables 5, figures 6, two-source 3, multi-turn 5, conflicts/revisions 3, unanswerable/false-premise/injection 3.}
+Each member wrote 25 questions from the three PDFs (not from Questions.csv) with the required category counts: facts and tables 5, figures 6, two-source 3, multi-turn 5 (22 conversations in each set), conflicts and revisions 3, and unanswerable, false-premise or injection questions 3. The sets are \texttt{eval/p1\_golden\_kavan.csv} and \texttt{eval/p1\_golden\_muhammed.csv}, and both systems are scored with the same scorer (\texttt{src/p1\_score.py}).
 
-\subsubsection{Selection of the final system}
-\pending{written together: how the final Part 1 system was chosen (Kaggle public score) and which golden set the results table uses.}
+\subsubsection{Selection of the final system}\label{sec:p1sel}
+We selected the final Part 1 system by its Kaggle public score. Kavan's system had the higher score (0.818) and was selected (\texttt{eval/p1\_selection.json}); the results table uses Kavan's golden set.
 
 \subsubsection{Results}
-\pending{written together: refer to Table~\ref{tab:p1} (dense baseline vs final hybrid), the human groundedness ratings by both members (mean and agreement within one point), and the median seconds per question.}
+Table~\ref{tab:p1} compares the dense-only baseline with the final hybrid system on Kavan's golden set. The hybrid system answers 23 of 25 questions correctly against 12 for the dense baseline, gets all 25 statuses right (20 for the baseline), and raises citation accuracy from 0.56 to 0.90. Recall@5 is the same for both (0.88). The median time per question falls from 1.71~s to 0.001~s because most hybrid answers are produced from parsed table facts without the language model.
+
+On Muhammed's golden set, Kavan's system answered 4 of 25 correctly in dense mode and 8 of 25 in hybrid mode (citation accuracy 0.25 and 0.34), and its hybrid Recall@5 was lower than the dense one (0.48 against 0.70). Muhammed's own system answered 10 of 25 on that set (Table~\ref{tab:p1b}). The two golden sets are different, so these numbers are not a clean ranking of the two systems.
+
+\pending{Both members: the mean human groundedness rating (1--5) and the agreement within one point need both members' ratings (\texttt{eval/human/p1\_groundedness\_*.csv}); Muhammed's file is still empty. Fill the two rows in Table~\ref{tab:p1} after rating.}
 
 \subsection{Safety analysis}
-The system did not cite Appendix C in any golden-set or Kaggle answer, showing that the low-trust filtering worked. It correctly rejected the missing Euro-area participation value and the false premise about China’s unemployment. However, it failed the CPI versus GDP-deflator comparison. On Muhammed’s set, the system failed all three injection and false-premise questions: M23 repeated the appendix’s instruction, M24 accepted the false premise about positive Euro-area growth, and M25 returned status not\_found in the answer text but had an incorrect answered status field. Overall, the system resisted many attacks but was still vulnerable to some indirect false-premise and injection questions.
+The system did not cite Appendix C in any golden-set or Kaggle answer, showing that the low-trust filtering worked. It correctly rejected the missing Euro-area participation value and the false premise about China's unemployment. However, it failed the CPI versus GDP-deflator comparison. On Muhammed's set, the system failed all three injection and false-premise questions: M23 repeated the appendix's instruction, M24 accepted the false premise about positive Euro-area growth, and M25 returned status not\_found in the answer text but had an incorrect answered status field. Overall, the system resisted many attacks but was still vulnerable to some indirect false-premise and injection questions.

@@ -1,28 +1,62 @@
-% Muhammed: replace each \pending{...} with your own text. Keep the headings.
-% Figures: put the images in reports/figures/ on Overleaf with these exact names (they are not on GitHub; generated images belong on Hugging Face).
 \subsection{Architecture and data}
-\pending{Muhammed: base model, LoRA setup \cite{hu,rombach}, an architecture diagram, the dataset, how corrupted/duplicate and NSFW images were removed and how many, and the 90/10 split with seed 266.}
+We fine-tune Stable Diffusion~1.5 \cite{rombach} with low-rank adapters \cite{hu} on the attention projections of the UNet (\texttt{to\_q}, \texttt{to\_k}, \texttt{to\_v}, \texttt{to\_out.0}); the VAE and the text encoder stay frozen. To fit a 16~GB Tesla T4, the VAE latents and text embeddings of the training images are computed once, and training uses fp16 autocast with gradient checkpointing. Fig.~\ref{fig:p2arch} shows the whole pipeline.
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[node distance=3.5mm,box/.style={draw,align=center,font=\scriptsize,minimum width=52mm,minimum height=5.5mm},>={Stealth}]
+\node[box] (a) {Naruto BLIP captions (1{,}221 images)};
+\node[box,below=of a] (b) {Clean: corrupted, duplicates, NSFW filter (957 left)};
+\node[box,below=of b] (c) {Split 90/10, seed 266, 512$\times$512 (861 / 96)};
+\node[box,below=of c] (d) {Pre-compute VAE latents and text embeddings};
+\node[box,below=of d] (e) {LoRA on the SD 1.5 UNet: run\_a (r=4), run\_b (r=32)};
+\node[box,below=of e] (f) {20 fixed prompts $\times$ seeds 0 and 1: base, run\_a, run\_b};
+\node[box,below=of f] (g) {KID, CLIP score, LPIPS, human pairs, safety checks};
+\foreach \a/\b in {a/b,b/c,c/d,d/e,e/f,f/g}{\draw[->] (\a)--(\b);}
+\end{tikzpicture}
+\caption{Part 2 pipeline.}
+\label{fig:p2arch}
+\end{figure}
+
+We use \texttt{lambdalabs/naruto-blip-captions}: 1{,}221 images, each with a BLIP caption. The notebook found 0 corrupted records, 0 exact duplicates and 0 near-duplicates (perceptual-hash distance of at most 2). The Stable Diffusion safety checker flagged 264 of the 1{,}221 images, and we removed them, which leaves 957 images. Some of the flagged captions that the notebook printed are ordinary descriptions (for example ``a man in a suit and a panda bear''), which suggests that many of these flags are false positives of a checker built for photographs. The filter was applied automatically and we did not tune it, so the removal may have changed which characters are represented. A 90/10 split with seed 266 gives 861 training and 96 test images, all center-cropped and resized to $512\times512$. The 20 evaluation prompts (10 in-domain, 5 out-of-domain, 5 compositional) were written and saved before training.
 
 \subsection{Training runs}
-\pending{Muhammed: the two runs (run\_a and run\_b) and how their settings differ; the results are in Table~\ref{tab:p2}.}
+Both runs use the same data, the same 1{,}500 steps with batch size 4 (6.97 epochs), the same learning rate of $10^{-4}$ (cosine schedule, 50 warm-up steps), AdamW with weight decay 0.01, gradient clipping at 1.0, and the same seed, so the noise and timestep stream is identical. Only the LoRA rank differs. Run~1 (\texttt{run\_a}) uses rank 4 with $\alpha=4$ and trains 797{,}184 parameters (0.09\% of the UNet); run~2 (\texttt{run\_b}) uses rank 32 with $\alpha=32$ and trains 6{,}377{,}472 parameters (0.74\%). Both took about half an hour on the T4 (0.51 and 0.49 GPU-hours), and both ended at almost the same training loss (0.0859 and 0.0857, mean of the last 100 steps). The settings and results are in Table~\ref{tab:p2}.
+
+The peak memory of run~1 (4.60~GiB) is not comparable with run~2 (2.88~GiB). Before run~1 started, the notebook printed 1.79~GiB still allocated on the GPU by an earlier failed attempt in the same session, so run~1's number includes that leftover; the reading before run~2 was 0.00~GiB. We therefore treat 2.88~GiB as the reliable peak-memory figure and make no memory comparison between the two ranks.
 
 \subsection{Results}
-\pending{Muhammed: KID, CLIP and LPIPS for base vs run\_a vs run\_b (Table~\ref{tab:p2}), and the side-by-side grids for 8 prompts (Fig.~\ref{fig:p2grid}).}
-\optfig{figures/p2_grid.png}{\columnwidth}{Base vs run\_a vs run\_b on 8 fixed prompts (seeds 0 and 1).}{fig:p2grid}
+KID is computed against the 96 held-out test images with 40 generated images per model (subset size 20, 100 subsets); CLIP score and LPIPS use the same 40 images (20 prompts, seeds 0 and 1). With so few images, KID is noisy, so we also report its standard deviation over subsets (Table~\ref{tab:p2}).
+
+Fine-tuning moves the generated images much closer to the dataset: KID falls from 0.0623 for the base model to 0.0240 for rank 4 and 0.0171 for rank 32. On the 20 in-domain images alone the drop is larger (0.0609 to 0.0119 and 0.0062). The difference between the two ranks is smaller than the spread over subsets (standard deviations of about 0.008 to 0.010), so we cannot say that rank 32 is better than rank 4 on KID alone. The CLIP score does not improve: it is 32.52 for the base model, 31.88 for rank 4 and 32.11 for rank 32. By category, the in-domain score drops from 32.42 to 31.31 and 31.26, the out-of-domain score stays about the same (31.29, 31.58, 31.56), and the compositional score is 33.94, 33.33 and 34.38. These differences (at most 0.63 points overall) are small next to the per-image standard deviation of 2.5 to 2.8, so they should be read as no clear change in prompt match. LPIPS diversity between the two seeds falls slightly (0.800, 0.789, 0.780), so the fine-tuned models vary a little less between seeds. The adapters are not merged, and generation takes 4.54~s per image against 4.33~s for the base model.
+
+Fig.~\ref{fig:p2grid} shows the base model and both runs for eight of the prompts. On the in-domain prompts the fine-tuned models draw clearly in the dataset's cartoon style, while the out-of-domain prompts (fruit bowl, Eiffel Tower) stay photographic. A zero-shot CLIP check on the 10 out-of-domain images per model found no image that looked like an anime cartoon, for any of the three models.
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/p2_grid.png}
+\caption{Base model, run\_a and run\_b on 8 of the 20 fixed prompts, seed 0. Columns are prompts 1 (blue hair, sword), 3 (pink hair, red dress), 6 (old man), 9 (red eyes, cloak), 12 (fruit bowl), 14 (Eiffel Tower), 17 (two characters), 19 (three ninjas).}
+\label{fig:p2grid}
+\end{figure*}
 
 \subsection{Human evaluation}
-\pending{Muhammed: 25 blinded pairs (final run vs base, left/right randomized), 3 raters (both members and one person outside the team), and the win rate. Note that each rater gave one overall preference per pair instead of separate domain-style and prompt-match picks.}
+We built 25 blinded pairs, each showing the base-model image and the run\_b image for the same prompt and seed, with left and right assigned at random. Three raters judged every pair, giving 75 judgments in total; each rater gave one overall preference per pair (``which image matches the prompt and looks cleaner'': A, B or tie) instead of separate domain-style and prompt-match picks. Run\_b was preferred 42 times, the base model 22 times, and 11 judgments were ties. Excluding ties, the win rate of run\_b is 0.656 (95\% bootstrap interval 0.467 to 0.836, 10{,}000 resamples of the pairs; two-sided sign test $p=0.017$). The three raters agreed well: mean pairwise agreement was 0.813 and Fleiss' $\kappa$ was 0.678; the individual win rates were 0.652, 0.682 and 0.632. The preference came almost entirely from the in-domain prompts (26 votes for run\_b, 12 for the base model, 1 tie), while out-of-domain pairs were close (7 to 4, with 4 ties) and compositional pairs were mixed (9 to 6, with 6 ties). We only compared the final run against the base model; run\_a was not rated by people.
 
 \subsection{Failure modes}
-\pending{Muhammed: at least two failure modes with example images, and which run you would ship and why.}
-\optfig{figures/p2_failure_1.png}{\columnwidth}{\pending{caption for failure mode 1}}{fig:p2fail1}
-\optfig{figures/p2_failure_2.png}{\columnwidth}{\pending{caption for failure mode 2}}{fig:p2fail2}
+\textbf{1. Fine-tuning drops objects from multi-object prompts.} For ``a cartoon cat wearing a tiny samurai helmet sitting next to a green teapot'' the base model draws the cat, a helmet-like head covering and a green teapot, while both fine-tuned runs draw a cat with a visor and no teapot. For ``a cartoon character with a yellow hat riding a white horse in front of a mountain'' the base model shows a rider in a yellow hat on a white horse, while both runs show only a horse with no rider (Fig.~\ref{fig:p2fail1}). All three raters preferred the base model in both pairs. The training captions we looked at mostly describe a single character, which may explain why the adapters favour one subject, but we did not test this.
+\optfig{figures/p2_failure_1.png}{\columnwidth}{Failure mode 1: objects missing after fine-tuning. Rows: prompts 18 and 20, seed 0.}{fig:p2fail1}
+
+\textbf{2. The relation in ``a red cube on top of a blue sphere'' is not drawn by any model.} In both seeds all three models produce a red block-like shape and no blue sphere (Fig.~\ref{fig:p2fail2}), and all three raters called both pairs a tie. This is a limitation of the base model that LoRA does not fix: object relations and colour binding for two objects are not learned from the single-character data.
+\optfig{figures/p2_failure_2.png}{\columnwidth}{Failure mode 2: no blue sphere in any model. Rows: prompt 16, seeds 0 and 1.}{fig:p2fail2}
+
+\textbf{Which run we would ship.} We would ship run\_b (rank 32). It has the lowest KID overall and in-domain, and people preferred it to the base model in 42 of 64 non-tied judgments. Its costs are small: about the same training time as run\_a and a slightly lower CLIP score and diversity than the base model. We have two cautions: the KID gap between rank 4 and rank 32 is within noise, and the failure modes above remain.
 
 \subsection{Safety analysis}
-\pending{Muhammed: dataset license (copyrighted characters, so non-commercial research only), the NSFW filter used on outputs and how many images it flagged, and the memorization check on 10 in-domain images \cite{carlini}.}
+\textbf{License.} The dataset card of \texttt{lambdalabs/naruto-blip-captions} declares no license, and the images are stills of a copyrighted anime, so we use the data and the adapters for non-commercial research and coursework only. The adapters also inherit the CreativeML OpenRAIL-M license of Stable Diffusion~1.5.
+
+\textbf{NSFW filter.} The Stable Diffusion safety checker removed 264 of the 1{,}221 training images (see above). On the generated images it flagged 0 of 40 for the base model, 1 of 40 for run\_a (prompt 3, seed 1) and 0 of 40 for run\_b. The checker was used only to count; generated images were not altered before computing the metrics.
+
+\textbf{Memorization.} Following \cite{carlini}, we compared every generated image with its nearest training image using CLIP image embeddings (cosine similarity) and LPIPS. As a reference, held-out test images have a nearest-training-image similarity of 0.904 on average, with a 99th percentile of 0.966. None of the 40 images of any model reached 0.966; the highest similarity was 0.774 for the base model, 0.906 for run\_a and 0.901 for run\_b, and the smallest LPIPS distance to a training image was 0.706, 0.708 and 0.673. We checked all 40 images per model, which includes the in-domain ones. This is a coarse check: CLIP similarity can miss a copy of a local detail. One prompt (``a man with orange hair and a blue shirt'') is identical to a caption in the training set, which the notebook reported; it affects two of the 40 images per model, and we did not remove it.
 
 \subsection{Model card}
-\pending{Muhammed: summary of the Hugging Face model card for run\_b (base model, data, training settings, results, limitations, license) and its link.}
+The model card for run\_b is published with the weights at \url{https://huggingface.co/muhammadfsalman/data266-lab2-p2-run_b}. It was generated by the notebook from the numbers above. It states the base model (\texttt{stable-diffusion-v1-5}), the dataset and the data cleaning (1{,}221 images, 264 removed by the safety checker, 861 training and 96 test images), the training settings (rank 32, $\alpha=32$, learning rate $10^{-4}$, 1{,}500 steps at batch size 4, 6.38M trainable parameters, seed 266, Tesla T4, 0.49 GPU-hours), the evaluation results, a usage example, the safety checks, and the limitations: it is a course project, it imitates the style of copyrighted material, and it inherits the license and limits of Stable Diffusion~1.5. The images generated for the evaluation (120 in total) are in the companion dataset repository \texttt{muhammadfsalman/data266-lab2-p2-images}.
 
 \subsection{Reproduction evidence}
 As an independent check of the Part 2 setup, I trained a rank-4 LoRA for 1{,}500 steps on a Tesla T4 (0.19 GPU-hours). Relative to the base model, mean KID fell from 0.18 to 0.10 while CLIP stayed about the same (Table~\ref{tab:p2repro}, Fig.~\ref{fig:p2kavan}).

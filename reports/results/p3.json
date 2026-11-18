@@ -1,18 +1,18 @@
 {
   "baseline": {
-    "median_seconds_per_request": 9.642238738999993,
+    "median_seconds_per_request": 9.642238739,
     "auto_checks_ok": 15,
     "mean_revisions": 0.0,
-    "scenarios_passed": null,
-    "human_agreement": null
+    "human_agreement": 1.0,
+    "scenarios_passed": 7
   },
   "final": {
-    "median_seconds_per_request": 16.65451299499989,
+    "median_seconds_per_request": 16.654512995,
     "auto_checks_ok": 15,
     "mean_revisions": 0.6,
-    "scenarios_passed": null,
-    "human_agreement": null,
-    "critic_agreement": null
+    "human_agreement": 1.0,
+    "scenarios_passed": 10,
+    "critic_agreement": 0.6666666666666666
   },
   "red_team_attack_success": 0,
   "red_team_cases": 10

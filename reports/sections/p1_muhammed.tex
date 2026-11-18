@@ -1,12 +1,45 @@
-% Muhammed: replace each \pending{...} with your own text. Keep the headings.
 \subsubsection{Architecture}
-\pending{Muhammed: your Part 1 pipeline, with an architecture diagram (a figure or a TikZ diagram like Fig.~\ref{fig:p1}).}
+System B answers questions over the same three PDFs with a hybrid retrieval design \cite{lewis}. PyMuPDF reads the pages, and three indexes are built: dense text embeddings (\texttt{BAAI/bge-small-en-v1.5}) stored in ChromaDB, a BM25 keyword index over the same chunks, and a CLIP (ViT-B/32) index of the pages that contain a numbered figure or table. Qwen2.5-VL-3B-Instruct (fp16) writes the JSON answer from the retrieved evidence. Fig.~\ref{fig:p1m} shows the flow.
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[node distance=4mm,box/.style={draw,align=center,font=\scriptsize,minimum width=33mm,minimum height=6mm},>={Stealth}]
+\node[box] (pdf) {PDFs + kb\_manifest.json};
+\node[box,below=of pdf] (ing) {Text chunks, figure/table pages,\\parsed table facts};
+\node[box,below=of ing] (idx) {ChromaDB (bge-small), BM25,\\CLIP image index};
+\node[box,below=of idx] (ret) {Exact label lookup, then fusion\\(RRF), low-trust text removed};
+\node[box,below=of ret] (ans) {Table facts, or Qwen2.5-VL-3B\\with per-conversation memory};
+\node[box,below=of ans] (out) {JSON answer, citations, status};
+\foreach \a/\b in {pdf/ing,ing/idx,idx/ret,ret/ans,ans/out}{\draw[->] (\a)--(\b);}
+\end{tikzpicture}
+\caption{System B (Muhammed) architecture.}
+\label{fig:p1m}
+\end{figure}
 
 \subsubsection{Ingestion and retrieval}
-\pending{Muhammed: how PDFs, tables and figures are indexed, and how retrieval works.}
+Each page is split into text chunks that keep their document ID, page number and trust level from \texttt{kb\_manifest.json}; the chunk metadata also holds the figure ID. Numbered figures and tables are found by matching ``Figure'' or ``Table'' labels in the page text. The page is rendered at 2$\times$ zoom and stored with its label and the first 400 characters of text after it. Appendix C is marked low trust, and evidence from low-trust text is removed before any answer is built. Tables are also extracted automatically with PyMuPDF and parsed into typed facts, where each value is marked as a forecast or an actual.
+
+At question time, a label named in the question (for example ``Figure A-3'') is looked up exactly first. Otherwise dense, BM25 and visual results are combined by reciprocal rank fusion (constant 60), with an extra score for exact label matches and a small term for how many of the question's keywords a result contains.
 
 \subsubsection{Answering}
-\pending{Muhammed: how answers, citations and statuses are produced.}
+The answer is a JSON object with the text, the citations (\texttt{DOC:page} or \texttt{DOC:label}), the figure labels used and one of the five statuses. Each conversation has its own memory. A message that starts an assumption (``assume that \dots'') is treated as conversation-only: it is kept in that conversation's memory, answered with status \texttt{session\_override}, and never added to the index. When the table facts contain the requested value, the number comes from them rather than from the language model; questions about figures are sent to the vision model together with the retrieved figure image, and an incomplete multi-part answer is retried.
 
 \subsubsection{What worked and what did not}
-\pending{Muhammed: your results and failures.}
+On my own 25-question golden set, scored with the shared scorer, the first complete run answered 8 questions correctly and the final system answered 10 (Table~\ref{tab:p1b}). In the final run 23 of 25 statuses were right, Recall@5 was 0.826 (over the 23 questions that have gold pages), citation accuracy was 0.586 (29 citations) and the median time was 2.74~s per question; 10 of the 25 answers came back in under half a second, most likely because they were answered from table facts or conversation memory without calling the language model.
+\begin{table}[!t]
+\centering
+\caption{System B (Muhammed) on Muhammed's golden set, shared scorer}
+\label{tab:p1b}
+\begin{tabular}{lcc}
+\hline
+Measure & First full run & Final \\
+\hline
+Correct out of 25 & 8 & 10 \\
+Status correct (of 25) & 23 & 23 \\
+Recall@5 & 0.739 & 0.826 \\
+Citation accuracy & 0.342 & 0.586 \\
+Median seconds per question & 5.02 & 2.74 \\
+\hline
+\end{tabular}
+\end{table}
+
+Conversation-only assumptions worked: the three questions that give an assumed value (M16, M17, M19) all received the status \texttt{session\_override}, with the assumed value used only in that conversation. Two conflict and revision answers (M21, M22) state both the forecast and the later outturn. The system fails in three ways. First, it never returns \texttt{false\_premise} or \texttt{not\_found}: M24 (a false premise about euro-area growth) was answered with $-0.7\%$, and M25 (a 2015 value that is not in the documents) was answered with 3.2\%, which are exactly the two status errors. Second, on the injection-style question M23 it returned 9.9\% from a main-document table instead of the expected refusal to use Appendix C; it did not cite Appendix C. Third, retrieval and rules still pick the wrong number for some table questions: for M03, which asks for the outturn rather than the forecast, the system returned 1.2\% instead of the 1.8\% outturn. The Kaggle submission produced by this notebook passed the format validator with 40 rows. The team selected Kavan's system as the final Part 1 system (Section~\ref{sec:p1sel}).
