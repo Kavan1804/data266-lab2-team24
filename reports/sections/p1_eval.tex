@@ -1,0 +1,12 @@
+\subsection{Evaluation and selection}
+\subsubsection{Golden sets}
+\pending{written together: each member wrote 25 questions from the three PDFs (not from Questions.csv) with the required category counts: facts/tables 5, figures 6, two-source 3, multi-turn 5, conflicts/revisions 3, unanswerable/false-premise/injection 3.}
+
+\subsubsection{Selection of the final system}
+\pending{written together: how the final Part 1 system was chosen (Kaggle public score) and which golden set the results table uses.}
+
+\subsubsection{Results}
+\pending{written together: refer to Table~\ref{tab:p1} (dense baseline vs final hybrid), the human groundedness ratings by both members (mean and agreement within one point), and the median seconds per question.}
+
+\subsection{Safety analysis}
+The system did not cite Appendix C in any golden-set or Kaggle answer, showing that the low-trust filtering worked. It correctly rejected the missing Euro-area participation value and the false premise about China’s unemployment. However, it failed the CPI versus GDP-deflator comparison. On Muhammed’s set, the system failed all three injection and false-premise questions: M23 repeated the appendix’s instruction, M24 accepted the false premise about positive Euro-area growth, and M25 returned status not\_found in the answer text but had an incorrect answered status field. Overall, the system resisted many attacks but was still vulnerable to some indirect false-premise and injection questions.

@@ -1,0 +1,29 @@
+% Muhammed: replace each \pending{...} with your own text. Keep the headings.
+% Figures: put the images in reports/figures/ on Overleaf with these exact names (they are not on GitHub; generated images belong on Hugging Face).
+\subsection{Architecture and data}
+\pending{Muhammed: base model, LoRA setup \cite{hu,rombach}, an architecture diagram, the dataset, how corrupted/duplicate and NSFW images were removed and how many, and the 90/10 split with seed 266.}
+
+\subsection{Training runs}
+\pending{Muhammed: the two runs (run\_a and run\_b) and how their settings differ; the results are in Table~\ref{tab:p2}.}
+
+\subsection{Results}
+\pending{Muhammed: KID, CLIP and LPIPS for base vs run\_a vs run\_b (Table~\ref{tab:p2}), and the side-by-side grids for 8 prompts (Fig.~\ref{fig:p2grid}).}
+\optfig{figures/p2_grid.png}{\columnwidth}{Base vs run\_a vs run\_b on 8 fixed prompts (seeds 0 and 1).}{fig:p2grid}
+
+\subsection{Human evaluation}
+\pending{Muhammed: 25 blinded pairs (final run vs base, left/right randomized), 3 raters (both members and one person outside the team), and the win rate. Note that each rater gave one overall preference per pair instead of separate domain-style and prompt-match picks.}
+
+\subsection{Failure modes}
+\pending{Muhammed: at least two failure modes with example images, and which run you would ship and why.}
+\optfig{figures/p2_failure_1.png}{\columnwidth}{\pending{caption for failure mode 1}}{fig:p2fail1}
+\optfig{figures/p2_failure_2.png}{\columnwidth}{\pending{caption for failure mode 2}}{fig:p2fail2}
+
+\subsection{Safety analysis}
+\pending{Muhammed: dataset license (copyrighted characters, so non-commercial research only), the NSFW filter used on outputs and how many images it flagged, and the memorization check on 10 in-domain images \cite{carlini}.}
+
+\subsection{Model card}
+\pending{Muhammed: summary of the Hugging Face model card for run\_b (base model, data, training settings, results, limitations, license) and its link.}
+
+\subsection{Reproduction evidence}
+As an independent check of the Part 2 setup, I trained a rank-4 LoRA for 1{,}500 steps on a Tesla T4 (0.19 GPU-hours). Relative to the base model, mean KID fell from 0.18 to 0.10 while CLIP stayed about the same (Table~\ref{tab:p2repro}, Fig.~\ref{fig:p2kavan}).
+\optfig{figures/p2_baseline_kavan_grid.png}{\columnwidth}{Kavan's independent baseline run: base model vs LoRA (rank 4, 1{,}500 steps).}{fig:p2kavan}

@@ -5,11 +5,11 @@ Tag p1-v1.0 commit: [PENDING]
 Tag p2-v1.0 commit: [PENDING]
 Tag p3-v1.0 commit: [PENDING]
 
-Hugging Face Part 2 model, run 1: [PENDING: <muhammed-hf>/data266-p2-lora-run1]
-Hugging Face Part 2 model, run 2: [PENDING: <muhammed-hf>/data266-p2-lora-run2]
-Hugging Face Part 2 images: [PENDING: <muhammed-hf>/data266-p2-generated-images]
-Hugging Face Part 3 inputs: [PENDING: Kavan1804/data266-p3-inputs]
-Hugging Face Part 2 baseline (Kavan, optional): [PENDING: Kavan1804/data266-p2-baseline-kavan-lora]
+Hugging Face Part 2 model, run 1 (run_a): https://huggingface.co/muhammadfsalman/data266-lab2-p2-run_a
+Hugging Face Part 2 model, run 2 (run_b, final): https://huggingface.co/muhammadfsalman/data266-lab2-p2-run_b
+Hugging Face Part 2 images: https://huggingface.co/datasets/muhammadfsalman/data266-lab2-p2-images
+Hugging Face Part 3 inputs: https://huggingface.co/datasets/Kavan1804/data266-p3-inputs
+Hugging Face Part 2 baseline (Kavan): https://huggingface.co/Kavan1804/data266-p2-baseline-kavan-lora
 
 Final Kaggle notebook: [PENDING]
 Final Kaggle submission selected: [PENDING]

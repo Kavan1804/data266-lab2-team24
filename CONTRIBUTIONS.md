@@ -10,7 +10,7 @@ Members: Kavan Siddesh Kumar and Muhammed Faiq Salman.
 | Part 3 | Lead: complete system (`p3_agents.ipynb`) | Baseline run (`p3_baseline_muhammed.ipynb`) |
 | Report | Part 1 (own system), Part 3, assembly | Part 1 (own system), Part 2 |
 
-Final Part 1 system: [PENDING: chosen at the final merge, see `eval/p1_selection.json`]
+Final Part 1 system: Kavan's system (higher Kaggle public score, 0.818), see `eval/p1_selection.json`.
 
 ## What each member actually did
 Each member writes only their own entry, and only what really happened. TEAM_WORKPLAN.md Section 10 has a checklist to start from.

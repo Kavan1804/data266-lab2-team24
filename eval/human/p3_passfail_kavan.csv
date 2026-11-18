@@ -14,7 +14,7 @@ S06,final,1,1,pixel-art apples are visible
 S07,baseline,0,,no clear red scarves while preserving the bears
 S07,final,1,1,
 S08,baseline,1,,green ground and skier are visible
-S08,final,0,0,final image still shows snow instead of grass
+S08,final,0,1,final image still shows snow instead of grass
 S09,baseline,0,,image is dark and computers are not preserved
 S09,final,1,1,
 S10,baseline,0,,rooftop is not clearly visible

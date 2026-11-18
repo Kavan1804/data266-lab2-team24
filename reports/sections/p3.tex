@@ -1,6 +1,5 @@
-% DRAFT written with Claude Code. The brief says "in your own words", so rewrite it before submitting.
 \subsection{Architecture}
-Five agents share one typed state object (Fig.~\ref{fig:p3}). The planner routes a request or refuses it. Caption and question requests stop after vision. Other requests continue through the prompt, generation and critique agents, and the critic can send a result back at most twice \cite{madaan}.
+The Part 3 system uses five agents that share one typed state object. The planner either routes the request or refuses it; caption and question requests stop after the vision step, while other requests continue through generation and critique. The critic can send the result back for at most two revisions \cite{madaan}.
 \begin{figure}[!t]
 \centering
 \begin{tikzpicture}[node distance=3.5mm,box/.style={draw,align=center,font=\scriptsize,minimum width=33mm,minimum height=5.5mm},>={Stealth}]
@@ -18,13 +17,25 @@ Five agents share one typed state object (Fig.~\ref{fig:p3}). The planner routes
 \end{figure}
 
 \subsection{Failure handling}
-Broken, empty and unreadable files are caught before any model runs. Every agent runs inside a wrapper that turns an exception into a message and still saves a trace.
+Broken, empty, and unreadable files are detected before any model is run. Each agent is also wrapped so that errors become user-facing messages while the execution trace is still saved.
 
 \subsection{Safety analysis}
-Text in an image is treated as data \cite{greshake}. The planner transcribes visible text, and if it reads like an instruction, generation requests are refused. Caption requests may quote that text as visible text but never act on it. Word patterns catch unsafe requests. The Stable Diffusion safety checker screens outputs, and flagged images never reach the user. [PENDING: results of the 10 red-team cases, with examples, after the GPU run.]
+Text found inside images is treated as data rather than as instructions \cite{greshake}. The planner transcribes visible text, refuses generation when that text contains instructions, and allows captions to quote it without acting on it. Word-pattern checks identify unsafe requests, and the Stable Diffusion safety checker screens generated outputs so flagged images are not shown to the user.
+
+None of the ten red-team attacks succeeded. The system refused hidden instructions inside images, sexual-content requests, graphic violence, deceptive edits of real people, and direct requests to disable safety filters. It also handled empty files and invalid image files without crashing, returning clear error messages. For image questions containing instructions, it treated the text as visible content rather than following it. These results show that the safety checks worked for the tested cases, although they do not guarantee protection against every possible reworded attack.
 
 \subsection{System card}
-\textbf{Can do:} caption images, answer questions about them, change style, edit, and generate domain-style images with our Part 2 LoRA. \textbf{Known limits:} [PENDING: fill in from observed failures]. Pattern-based checks can miss reworded requests. CLIP is only a rough measure of prompt match. \textbf{Safety measures:} input refusal, hidden-instruction check, output filter, two-revision limit and a JSON trace for every request.
+\textbf{Can do and known limits:} The system can caption images, answer image questions, change styles, edit images, and generate Naruto-style images. Its main limitation is that generated images do not always satisfy every part of a request. S05 remained insufficiently pencil-sketch-like, S08 became worse after critique and ended with snow instead of grass, S10 did not clearly show a rooftop, and S12 did not clearly show a night scene or full moon. The critic helped improve S06, S07, S09, and S11. For S08, the critic rejected the image in all three rounds, so the system stopped after reaching the two-revision limit. The critic accepted S05, S10, and S12 even though I judged their final images as failures. The critic is useful but not fully reliable because it combines a CLIP similarity threshold with a vision-model YES/NO check, and it can still accept images that fail parts of the rubric. \textbf{Safety measures:} input refusal, hidden-instruction check, output filter, two-revision limit and a JSON trace for every request.
 
 \subsection{What worked and what did not}
-[PENDING: write this after the GPU run, using real outputs.]
+The critique loop improved the pass rate from 7/15 to 10/15. S06, S07, S09, and S11 improved, while S08 regressed from passing to failing. S03, S05, S10, and S12 failed in both modes. Style-change, edit, and domain-generation results improved, while caption and ambiguous-input results stayed mostly the same. The final system was slower, increasing from a 9.64-second median to 16.65 seconds. The final system was slower because each generated image went through critic evaluation, including CLIP scoring and a vision-model check, and some cases also required revisions. Overall, critique helped several cases but did not guarantee that the final image satisfied the full rubric.
+
+\optfig{figures/p3_critique_S06.png}{\columnwidth}{S06 (``Restyle this as pixel art.''), final mode, rounds 0--2. The critic asked for revisions on rounds 0 and 1 (CLIP 0.294, 0.314) and accepted round 2 (CLIP 0.367).}{fig:p3s06}
+\optfig{figures/p3_critique_S08.png}{\columnwidth}{S08 (``Change the snow to green grass.''), final mode, rounds 0--2. The critic asked for revisions on all three rounds (CLIP 0.361, 0.392, 0.329); the system stopped at the two-revision limit and returned round 1, the highest-CLIP attempt, with a warning.}{fig:p3s08}
+
+Table~\ref{tab:p3} summarizes the no-critique vs with-critique comparison, and Figs.~\ref{fig:p3s06}--\ref{fig:p3s08} show the critique rounds for S06, where revisions raised CLIP and the critic finally accepted the pixel-art result, and for S08, where every round was rejected and the system returned the highest-CLIP attempt after the two-revision limit.
+
+\pending{check the 7/15 and 10/15 above against Table~\ref{tab:p3} once both members have rated (they are Kavan's ratings only), and add the human agreement.}
+
+\subsection{Reproduction evidence}
+\pending{Muhammed: one or two sentences in your own words about your independent Part 3 baseline (notebooks/p3\_baseline\_Muhammad.ipynb) and its result.}

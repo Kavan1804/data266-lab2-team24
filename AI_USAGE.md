@@ -3,26 +3,31 @@
 The brief asks us to declare the AI coding assistants we used and what we used them for.
 
 ## Kavan Siddesh Kumar
-**Tool:** Claude Code (Claude Opus 5.5, Anthropic).
+**Tool:** Claude (Claude Code / Cursor agent, Anthropic).
 
-**What it did:**
-- Read the brief and the Part 1 files, and helped organize the repo layout, the work split and the shared file formats (`TEAM_WORKPLAN.md`, `PARTNER_LLM_PROMPT.md`).
-- Wrote and refined code in `src/`, `tools/` and `tests/`, and generated Kavan's notebooks from it.
-- Wrote the shared golden-set scorer (`src/p1_score.py`, `notebooks/p1_eval.ipynb`).
-- Drafted `eval/p1_test_prompts.csv`, `eval/p3_scenarios.json` and `eval/p3_red_team_cases.json`.
-- Debugged errors with offline tests that use fake models.
-- Drafted documentation, markdown wording and draft report text, which Kavan rewrites in his own words.
+**How I used it:**
+I used Claude as a brainstorming and engineering assistant, not as an unsupervised author of the project. Main uses:
+
+- **Architecture and design.** I chose the Part 1 RAG layout (ingestion → hybrid retrieval → rule-based table facts vs vision for figures → checked JSON) and the Part 3 agent pipeline (planner → vision → prompt → generation → critique) after talking through options with Claude: what to index, when to prefer exact table facts over the LLM, how to wire RRF retrieval, and how to keep Part 3 state and traces typed. Final design choices are mine.
+- **Code refinement.** Claude helped refine and restructure code in `src/`, `tools/`, and `tests/` (cleaner interfaces, notebook builders, offline fakes). I reviewed diffs, kept what fit the brief, and changed or rejected the rest.
+- **Debugging.** Claude helped diagnose runtime and parsing failures (for example PyMuPDF table extraction quirks and caption/year-column mix-ups). I reproduced each bug, confirmed the fix with offline tests or printed intermediates, and landed the patch myself.
+- **Documentation.** Claude drafted or tightened wording for `README.md`, work-plan notes, notebook markdown, and early report phrasing. I rewrote report sections and contribution claims in my own words before submission.
 
 **What it did not do:**
-- It did not do any human evaluation. Ratings and pass/fail judgments come from people.
-- It did not decide personal contributions.
-- It did not run the GPU work. Kavan runs the notebooks.
+- It did not do any human evaluation. Groundedness ratings, Part 2 preference ratings, and Part 3 pass/fail judgments are from people only.
+- It did not invent personal contribution claims or run the GPU notebooks for me. I ran Colab/Kaggle jobs, checked outputs, and committed results.
+- It did not decide which Part 1 system the team ships; that comes from comparing both golden-set scores at merge.
 
-**What Kavan did:** [TO BE WRITTEN BY KAVAN: what you reviewed, changed, ran and verified, and what you rewrote in your own words]
+**What I did:**
+- Decided the architectures and evaluation setup for my parts (Part 1 system, Part 2 baseline, Part 3 lead).
+- Wrote and/or heavily edited the code that ships in my notebooks and `src/` files after AI suggestions.
+- Built golden sets, safety probes, scenarios, and red-team cases; filled my human eval forms by hand against the PDFs and traces.
+- Ran offline tests (`tests/test_offline.py`, dry runs) and real GPU runs; verified metrics against notebook outputs before putting numbers in the report.
+- Rewrote documentation and report text so the submitted voice and claims match what actually ran.
 
 **Things it got wrong, and how they were found:**
-- The first table parser read values like `3.0` as `30.0`, because PyMuPDF's table extraction scrambled the characters. Printing the parsed rows showed it, and the parser now reads each cell from word positions.
-- With the pinned PyMuPDF 1.25.5, the parser treated a table's caption row as a year column. Tables 1-2 to 1-4 produced no facts, and every Table 1-1 row was labelled "World". Kerned captions also hid Table A-3. The offline test failed on China's 2009 growth, and printing the parsed facts showed why. Both are fixed.
+- An early table parser read values like `3.0` as `30.0` because PyMuPDF’s table extraction scrambled characters. Printing parsed rows showed it; the parser now reads cells from word positions.
+- With pinned PyMuPDF 1.25.5, a caption row was treated as a year column, so Tables 1-2 to 1-4 produced no facts and Table 1-1 rows were labelled “World”; kerned captions also hid Table A-3. The offline test failed on China’s 2009 growth, and printing facts showed why. Both issues are fixed.
 
 ## Muhammed Faiq Salman
 **Tool:** [TO BE WRITTEN BY MUHAMMED: tool name and version]
